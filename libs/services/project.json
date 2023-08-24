@@ -1,0 +1,23 @@
+{
+  "name": "services",
+  "projectType": "library",
+  "sourceRoot": "libs/services/src",
+  "prefix": "play.app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/services"],
+      "options": {
+        "jestConfig": "libs/services/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/services/**/*.ts", "libs/services/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}

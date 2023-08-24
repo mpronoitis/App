@@ -1,0 +1,60 @@
+<ng-container *transloco="let t; read: 'invoice-info'">
+  <div class="min-h-screen -mb-50">
+    <section class="bg-gray-200">
+      <div class="container mx-auto h-25 pt-5 pb-5">
+        <h1 class="text-2xl font-bold text-blue-900">{{ t('invoicing') }}</h1>
+        <p class="text-sm text-gray-500">
+          {{ t('invoice-details') }}
+        </p>
+      </div>
+    </section>
+
+    <section *ngIf="!loading" class="text-gray-600 body-font">
+      <br />
+      <br />
+      <p></p>
+
+      <div *ngIf="loading" class="text-center pt-5 mt-5">
+        <play-components-simple-spinner
+          *ngIf="loading"
+          class="grow"
+          mainColor="blue"
+          id="spinner"
+        ></play-components-simple-spinner>
+      </div>
+
+      <section *ngIf="!loading">
+        <!-- main content , contains a mat-expansion-panel  that will be centered-->
+        <div class="container mx-auto h-25 pt-5 pb-5">
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header> </mat-expansion-panel-header>
+
+            <ng-template matExpansionPanelContent>
+              <play-app-invoice-table
+                id="invoices-table"
+                *ngIf="show_invoices_table"
+                (refresh)="refresh()"
+                (displayRow)="viewInvoice($event)"
+                [invoices]="invoices"
+              ></play-app-invoice-table>
+            </ng-template>
+          </mat-expansion-panel>
+        </div>
+      </section>
+    </section>
+
+    <play-app-invoice
+      *ngIf="showInvoice"
+      [invoice]="invoice!"
+    ></play-app-invoice>
+    <section *ngIf="loading" class="text-gray-600 body-font">
+      <div *ngIf="loading" class="text-center pt-5 mt-5 mb-10">
+        <play-components-simple-spinner
+          *ngIf="loading"
+          class="grow"
+          mainColor="blue"
+        ></play-components-simple-spinner>
+      </div>
+    </section>
+  </div>
+</ng-container>

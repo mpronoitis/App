@@ -1,0 +1,85 @@
+<div class="flex items-center min-h-screen bg-gray-200">
+  <div class="flex-1 h-auto max-w-4xl mx-auto bg-white rounded-lg shadow-xl">
+    <div class="flex flex-col md:flex-row">
+      <div class="hidden md:block md:h-auto md:w-1/2">
+        <img
+          class="object-cover w-full h-full"
+          src="/assets/login_bg.webp"
+          alt="Login"
+        />
+      </div>
+
+      <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+        <div class="w-full">
+          <div class="flex justify-center">
+            <img src="/assets/play.webp" alt="" />
+          </div>
+          <h1 class="mb-4 text-2xl font-bold text-center text-gray-700">
+            Login to Your Account
+          </h1>
+          <form [formGroup]="form">
+            <div class="mb-6">
+              <label
+                for="email"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >Your email</label
+              >
+              <input
+                id="email"
+                formControlName="email"
+                type="email"
+                required
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 lg:w-80 xl:w-80 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              />
+            </div>
+            <div class="mb-6">
+              <label
+                for="password"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >Your password</label
+              >
+              <input
+                id="password"
+                formControlName="password"
+                type="password"
+                required
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 g:w-80 xl:w-80 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              />
+            </div>
+
+            <play-components-simple-alert
+              *ngIf="show_message"
+              type="danger"
+              [text]="message_text"
+              title="Error!"
+            >
+            </play-components-simple-alert>
+
+            <div class="text-sm leading-5 mb-4">
+              <span
+                (click)="forgotPasswordDialog()"
+                class="font-medium text-indigo-600 hover:text-indigo-500 ml-1 focus:outline-none focus:underline transition ease-in-out duration-150 cursor-pointer"
+              >
+                Forgot your password?
+              </span>
+            </div>
+
+            <play-components-simple-button
+              title="Log in"
+              [icon]="faSignIn"
+              size="w-full"
+              color="blue"
+              (click)="login()"
+              [loading]="loading"
+              [disabled]="form.invalid"
+              action="submit"
+            >
+            </play-components-simple-button>
+          </form>
+
+          <hr class="my-10" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

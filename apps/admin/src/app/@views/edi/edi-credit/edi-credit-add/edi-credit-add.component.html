@@ -1,0 +1,66 @@
+<div class="bg-white rounded shadow-lg container mx-auto p-4 mt-2">
+  <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+    <div class="text-gray-600">
+      <p class="font-medium text-lg">Model Details</p>
+      <p>Please fill out all the fields.</p>
+    </div>
+    <form [formGroup]="addForm">
+      <div class="lg:col-span-2">
+        <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+          <div class="md:col-span-5">
+            <label for="amount">Amount</label>
+            <input
+              type="number"
+              name="amount"
+              id="amount"
+              formControlName="amount"
+              class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+              required
+            />
+          </div>
+
+          <!--Customer Name-->
+          <div class="md:col-span-5">
+            <label for="customerName">Customer Name</label>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Customer Name</mat-label>
+              <input
+                type="text"
+                placeholder="Select one"
+                aria-label="string"
+                matInput
+                [formControl]="customerControl"
+                [matAutocomplete]="autoCustomer"
+              />
+              <mat-autocomplete
+                autoActiveFirstOption
+                #autoCustomer="matAutocomplete"
+              >
+                <mat-option
+                  *ngFor="let option of customerFilteredOptions | async"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+          <div class="md:col-span-5 text-right">
+            <play-components-simple-button
+              title="Create"
+              [icon]="faAdd"
+              size="w-full"
+              color="blue"
+              (click)="addEdiCredit(customerControl)"
+              [loading]="loading"
+              [disabled]="addForm.invalid"
+              action="submit"
+            >
+            </play-components-simple-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

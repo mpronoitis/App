@@ -1,0 +1,111 @@
+{
+  "foo": "Foo",
+  "bar": "Bar",
+  "profile-dashboard": {
+    "header": {
+      "dashboard": "Πίνακας Ελέγχου",
+      "edi-messages": "Μηνύματα EDI",
+      "invoices": "Τιμολόγια"
+    },
+    "welcome": "Καλώς ήρθατε στον πίνακα ελέγχου",
+    "desc": "Dashboard Desc",
+    "hero": "Συνδεθήκατε ως {{name}} μέλος του οργανισμού {{org}}",
+    "cards": {
+      "edi": "Μηνύματα EDI",
+      "profile": "Προφίλ",
+      "settings": "Ρυθμίσεις",
+      "logout": "Αποσύνδεση",
+      "invoices": "Τιμολόγια"
+    },
+    "logout-dialog": {
+      "title": "Αποσύνδεση",
+      "desc": "Είστε σίγουρος ότι θέλετε να αποσυνδεθείτε;",
+      "cancel": "Όχι",
+      "confirm": "Ναί"
+    }
+  },
+  "profile-info": {
+    "first-name": "Όνομα",
+    "last-name": "Επώνυμο",
+    "company-name": "Όνομα Εταιρείας",
+    "afm": "ΑΦΜ",
+    "date-birth": "Ημερομηνία Γέννησης",
+    "choose-date": "Διάλεξε ημερομηνία",
+    "edit-label": "Επεξεργασία",
+    "save-label": "Αποθήκευση",
+    "cancel-label": "Ακύρωση"
+  },
+  "settings-info": {
+    "settings-header": "Σε αυτή τη σελίδα έχετε τη δυνατότητα να κάνετε εναλλαγή των ρυθμίσεων που αφορούν τη δική σας ασφάλεια!",
+    "settings-label": "Ρυθμίσεις",
+    "search-label": "Αναζήτηση",
+    "change-password": "Αλλαγή Κωδικού",
+    "change-theme": "Αλλαγή Θέματος",
+    "password-detail": "Κρατήστε τον κωδικό σας μυστικό!",
+    "old-password": "Παλιός Κωδικός",
+    "new-password": "Νέος Κωδικός",
+    "change-language": "Αλλαγή Γλώσσας",
+    "language-detail": "Επιλέξτε τη γλώσσα που θέλετε να χρησιμοποιήσετε",
+    "theme-detail": "Επιλέξτε το θέμα που θέλετε να χρησιμοποιήσετε",
+    "language": "Γλώσσα",
+    "theme": "Θέμα",
+    "save": "Αποθήκευση"
+  },
+  "invoice-info": {
+    "invoicing": "Τιμολόγηση",
+    "invoice-details": "Δείτε τα τιμολόγια και τις πληρωμές σας",
+    "invoice-code": "Κωδικός",
+    "invoice-date": "Ημερομηνία",
+    "total-amount": "Συνολικό Ποσό",
+    "total-tax": "Φόρος",
+    "refresh": "Ανανέωση",
+    "filter": "Φιλτράρισμα"
+  },
+  "edi-dashboard": {
+    "hero": "Σε αυτή την σελίδα μπορείτε να δείτε τα EDIFACT που έχετε αποστείλει",
+    "detail": "Μηνιαία Κίνηση",
+    "cards": {
+      "documents": "Παραστατικά",
+      "profile": "Προφίλ",
+      "connections": "Συνδέσεις"
+    },
+    "graph_data": {
+      "month": "Μήνας",
+      "documents": "Παραστατικά"
+    },
+    "edi-documents-table": {
+      "refresh_label": "Ανανέωση",
+      "title": "Τίτλος",
+      "processed": "Processed",
+      "sent": "Στάλθηκε",
+      "created_at": "Ημερομηνία Δημιουργίας",
+      "waiting": "Αναμονή",
+      "upload": "Μεταφόρτωση",
+      "filter_label": "Φιλτράρισμα",
+      "row_no_data": "Δεν έχετε ακόμα κανένα EDI παραστατικό",
+      "information-edi-dialog": {
+        "title": "Πληροφορίες Παραστατικού",
+        "close": "Κλείσιμο"
+      },
+      "send-edi-dialog": {
+        "label": "Είστε σίγουρος ότι θέλετε να ανεβάσετε {{ totalDocuments }} Παραστατικά EDI?",
+        "title": "Μεταφόρτωση Παραστατικού",
+        "close": "Κλείσιμο",
+        "no-label": "Όχι",
+        "yes-label": "Ναι"
+      }
+    },
+    "edi-connections-table": {
+      "refresh_label": "Ανανέωση",
+      "hostname": "Πάροχος",
+      "username": "Όνομα Χρήστη",
+      "filter_label": "Φιλτράρισμα"
+    },
+    "edi-profiles-table": {
+      "title": "Τίτλος",
+      "enabled": "Επιτρέπεται",
+      "disabled": "Απενεργοποιημένο",
+      "create-profile": "Δημιουργία Προφίλ"
+    }
+  }
+}

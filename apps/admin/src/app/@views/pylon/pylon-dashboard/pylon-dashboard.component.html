@@ -1,0 +1,178 @@
+<div *ngIf="loading" class="text-center pt-5 mt-5">
+  <play-components-simple-spinner
+    *ngIf="loading"
+    class="grow"
+    mainColor="blue"
+    id="spinner"
+  ></play-components-simple-spinner>
+</div>
+<section *ngIf="!loading" class="ml-20">
+  <!-- 3 tailwind cards in a row with gap between them , on mobile they will stack
+        these 3 cards will display the following information
+
+        - Version
+        - Serial Number
+        - Application Name -->
+  <div class="flex flex-wrap mb-2 mt-4">
+    <div class="w-full md:w-1/3 lg:w-1/3 xl:w-1/3 p-2">
+      <div class="bg-white shadow-md rounded border-l-4 border-blue-600">
+        <div class="p-5">
+          <p class="text-gray-800 font-bold text-xl">Version</p>
+          <p class="text-gray-600 text-center text-3xl">
+            {{ cardData.version }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="w-full md:w-1/3 lg:w-1/3 xl:w-1/3 p-2">
+      <div class="bg-white shadow-md rounded border-l-4 border-blue-500">
+        <div class="p-5">
+          <p class="text-gray-800 font-bold text-xl">Serial Number</p>
+          <p class="text-gray-600 text-center text-3xl">
+            {{ cardData.serial }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="w-full md:w-1/3 lg:w-1/3 xl:w-1/3 p-2">
+      <div class="bg-white shadow-md rounded border-l-4 border-blue-400">
+        <div class="p-5">
+          <p class="text-gray-800 font-bold text-xl">Application Name</p>
+          <p class="text-gray-600 text-center text-2xl">
+            {{ cardData.applicationName }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- buttons -->
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-wrap -m-4 text-center">
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [ngClass]="
+            show_sessions_table && !loading ? 'bg-blue-900 text-white' : ''
+          "
+          (click)="
+            show_sessions_table = true;
+            show_pricing_table = false;
+            show_items_table = false;
+            show_contacts_table = false;
+            expanded = true
+          "
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faUsersBetweenLines"
+            [ngClass]="
+              show_sessions_table && !loading ? 'text-white' : 'text-blue-500'
+            "
+            class="text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Sessions</p>
+        </div>
+      </div>
+
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [ngClass]="
+            show_contacts_table && !loading ? 'bg-blue-900 text-white' : ''
+          "
+          (click)="
+            show_contacts_table = true;
+            show_sessions_table = false;
+            show_items_table = false;
+            show_pricing_table = false;
+            expanded = true
+          "
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faContactBook"
+            [ngClass]="
+              show_contacts_table && !loading ? 'text-white' : 'text-blue-500'
+            "
+            class="text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Contacts</p>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [ngClass]="
+            show_items_table && !loading ? 'bg-blue-900 text-white' : ''
+          "
+          (click)="
+            show_contacts_table = false;
+            show_sessions_table = false;
+            show_items_table = true;
+            show_pricing_table = false;
+            expanded = true
+          "
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faBoxesPacking"
+            [ngClass]="
+              show_items_table && !loading ? 'text-white' : 'text-blue-500'
+            "
+            class="text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Items</p>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [ngClass]="
+            show_pricing_table && !loading ? 'bg-blue-900 text-white' : ''
+          "
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faMoneyCheckDollar"
+            [ngClass]="
+              show_pricing_table && !loading ? 'text-white' : 'text-blue-500'
+            "
+            class="text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Price Lists</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- expansion panel -->
+<section *ngIf="!loading && expanded">
+  <!-- main content , contains a mat-expansion-panel  that will be centered-->
+  <div class="container mx-auto h-25 pt-5 pb-5">
+    <mat-expansion-panel [expanded]="expanded" class="mx-auto">
+      <mat-expansion-panel-header>
+        {{
+          show_pricing_table
+            ? 'Price Lists'
+            : show_items_table
+            ? 'Items'
+            : show_sessions_table
+            ? 'Sessions'
+            : show_contacts_table
+            ? 'Contacts'
+            : ''
+        }}
+      </mat-expansion-panel-header>
+      <play-app-pylon-sessions-table
+        *ngIf="show_sessions_table"
+      ></play-app-pylon-sessions-table>
+      <play-app-pylon-contacts-table
+        *ngIf="show_contacts_table"
+      ></play-app-pylon-contacts-table>
+      <play-app-pylon-items-table
+        *ngIf="show_items_table"
+      ></play-app-pylon-items-table>
+      <ng-template matExpansionPanelContent> </ng-template>
+    </mat-expansion-panel>
+  </div>
+</section>

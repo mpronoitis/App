@@ -1,0 +1,109 @@
+<div *ngIf="loading" class="text-center pt-5 mt-5">
+  <play-components-simple-spinner
+    *ngIf="loading"
+    class="grow"
+    mainColor="blue"
+  ></play-components-simple-spinner>
+</div>
+
+<ng-container *transloco="let t; read: 'edi-dashboard'">
+  <mat-form-field appearance="standard">
+    <mat-label>{{ t('edi-connections-table.filter_label') }} 🔍</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. My profile name"
+      #input
+    />
+  </mat-form-field>
+  <div class="container">
+    <!--tailwind , 2 buttons, flex -->
+    <div class="flex justify-between pl-2 pb-2">
+      <div class="flex">
+        <play-components-simple-button
+          (click)="getProfiles(1, 100)"
+          title="{{ t('edi-connections-table.refresh_label') }}"
+          color="blue"
+          [icon]="faSync"
+          id="refresh"
+        >
+        </play-components-simple-button>
+        <play-components-simple-button
+          [routerLink]="'profile-editor'"
+          title="{{ t('edi-profiles-table.create-profile') }}"
+          [icon]="faPlus"
+          color="green"
+        >
+        </play-components-simple-button>
+      </div>
+      <div class="flex"></div>
+    </div>
+    <div class="mat-elevation-z8">
+      <table *ngIf="!loading" mat-table [dataSource]="dataSource" matSort>
+        <!-- Title Column -->
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ t('edi-profiles-table.title') }}
+          </th>
+          <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+        </ng-container>
+
+        <!-- enabled Column -->
+        <ng-container matColumnDef="enabled">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ t('edi-profiles-table.enabled') }}
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <span class="ml-auto">
+              <play-components-simple-badge
+                *ngIf="row.enabled"
+                title="{{ t('edi-profiles-table.enabled') }}"
+                backgroundColor="green"
+                size="sm"
+                textColor="green"
+              >
+              </play-components-simple-badge>
+              <play-components-simple-badge
+                *ngIf="!row.enabled"
+                title="{{ t('edi-profiles-table.disabled') }}"
+                backgroundColor="red"
+                size="sm"
+                textColor="red"
+              >
+              </play-components-simple-badge>
+            </span>
+            <!-- <span
+              *ngIf="row.enabled"
+              class="bg-green-100 text-green-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900"
+              >Enabled</span
+            >
+            <span
+              *ngIf="!row.enabled"
+              class="bg-red-100 text-red-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900"
+              >Disabled</span
+            > -->
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          (click)="profileEditor(row)"
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+            {{ t('edi-documents-table.row_no_data') }} "{{ input.value }}"
+          </td>
+        </tr>
+      </table>
+
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        aria-label="Select page"
+      ></mat-paginator>
+    </div>
+  </div>
+</ng-container>

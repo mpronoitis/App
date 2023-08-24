@@ -1,0 +1,25 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+.mat-row:hover .mat-cell {
+  background-color: #eeeeee;
+  cursor: pointer;
+}
+.mat-column-status {
+  width: 5% !important;
+}
+
+.mat-column-date {
+  width: 15% !important;
+}

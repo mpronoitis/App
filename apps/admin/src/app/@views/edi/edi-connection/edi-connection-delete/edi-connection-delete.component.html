@@ -1,0 +1,43 @@
+<div class="bg-white rounded shadow-lg container mx-auto p-4 mt-2">
+  <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+    <div class="text-gray-600">
+      <p class="font-medium text-lg">Choose A Connection to delete</p>
+    </div>
+
+    <div class="md:col-span-5">
+      <label for="address">Connection Title</label>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Connection Title</mat-label>
+        <input
+          type="text"
+          placeholder="Select one"
+          aria-label="string"
+          matInput
+          [formControl]="ediConnectionControl"
+          [matAutocomplete]="autoEdiConnection"
+        />
+        <mat-autocomplete
+          autoActiveFirstOption
+          #autoEdiConnection="matAutocomplete"
+        >
+          <mat-option
+            *ngFor="let option of ediConnectionsFilteredOptions | async"
+            [value]="option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <play-components-simple-button
+        title="Delete"
+        [icon]="faTrash"
+        (click)="deleteConnection(ediConnectionControl)"
+        size="w-full"
+        color="blue"
+        action="submit"
+        [loading]="loading"
+      >
+      </play-components-simple-button>
+    </div>
+  </div>
+</div>

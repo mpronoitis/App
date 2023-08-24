@@ -1,0 +1,108 @@
+<div *ngIf="loading" class="text-center pt-5 mt-5">
+  <play-components-simple-spinner
+    *ngIf="loading"
+    class="grow"
+    mainColor="blue"
+    id="spinner"
+  ></play-components-simple-spinner>
+</div>
+
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-wrap -m-4 text-center">
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [ngClass]="show_users && !loading ? 'bg-blue-900 text-white' : ''"
+          (click)="
+            show_users = true;
+            show_orders = false;
+            show_products = false;
+            show_system = false
+          "
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faUsers"
+            [ngClass]="show_users && !loading ? 'text-white' : 'text-blue-500'"
+            class="text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Clients</p>
+        </div>
+      </div>
+
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [ngClass]="show_orders && !loading ? 'bg-blue-900 text-white' : ''"
+          (click)="
+            show_users = false;
+            show_orders = true;
+            show_products = false;
+            show_system = false
+          "
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faCartPlus"
+            [ngClass]="show_orders && !loading ? 'text-white' : 'text-blue-500'"
+            class="text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Orders</p>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [ngClass]="show_products && !loading ? 'bg-blue-900 text-white' : ''"
+          (click)="
+            show_users = false;
+            show_orders = false;
+            show_products = true;
+            show_system = false
+          "
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faBasketShopping"
+            [ngClass]="
+              show_products && !loading ? 'text-white' : 'text-blue-500'
+            "
+            class="text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Products</p>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [ngClass]="show_system && !loading ? 'bg-blue-900 text-white' : ''"
+          (click)="
+            show_users = false;
+            show_orders = false;
+            show_products = false;
+            show_system = true
+          "
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faWhmcs"
+            [ngClass]="show_system && !loading ? 'text-white' : 'text-blue-500'"
+            class="text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">System</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section *ngIf="!loading">
+  <div class="container mx-auto h-25 pt-5 pb-5">
+    <ng-container *ngIf="show_users">
+      <play-app-whmcs-clients-table></play-app-whmcs-clients-table>
+    </ng-container>
+    <ng-container *ngIf="show_orders">
+      <play-app-whmcs-orders-table></play-app-whmcs-orders-table>
+    </ng-container>
+    <ng-container *ngIf="show_products">
+      <play-app-whmcs-products-table></play-app-whmcs-products-table>
+    </ng-container>
+  </div>
+</section>

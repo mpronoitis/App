@@ -1,0 +1,140 @@
+<ng-container *ngIf="packages">
+  <mat-form-field appearance="standard">
+    <mat-label>Search 🔍</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. My domain name"
+      #input
+    />
+  </mat-form-field>
+  <div class="container">
+    <!--tailwind , 2 buttons, flex -->
+    <div class="flex justify-between pl-2 pb-2">
+      <div class="flex">
+        <button
+          (click)="getPackages()"
+          class="bg-blue-500 mr-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
+        >
+          <fa-icon [icon]="faSync"></fa-icon>
+          Refresh
+        </button>
+        <!--Mass Scan Malware Button-->
+        <play-components-simple-button
+          color="orange"
+          title="Malware Scan"
+          (click)="massScan(selection.selected)"
+          [icon]="faVirus"
+        ></play-components-simple-button>
+      </div>
+      <div class="flex"></div>
+    </div>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox
+              color="primary"
+              (change)="$event ? toggleAllRows() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+            >
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox
+              color="primary"
+              (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)"
+            >
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="platform">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Platform</th>
+          <td mat-cell *matCellDef="let row">
+            <img
+              class="w-7"
+              *ngIf="row.platform === 'linux'"
+              src="assets/linux.webp"
+            />
+            <img
+              class="w-7"
+              *ngIf="row.platform === 'wordpress'"
+              src="assets/wordpress.webp"
+            />
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+          <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="serviceType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Service Type
+          </th>
+          <td mat-cell *matCellDef="let row">{{ row.serviceType }}</td>
+        </ng-container>
+
+        <!--created date-->
+        <ng-container matColumnDef="created">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Created Date
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.created | date: 'dd/MM/yyyy' }}
+          </td>
+        </ng-container>
+
+        <!-- eanbled flag -->
+        <ng-container matColumnDef="enabled">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Enabled</th>
+          <td mat-cell *matCellDef="let row">
+            <span class="ml-auto">
+              <play-components-simple-badge
+                *ngIf="row.enabled"
+                title="Yes"
+                backgroundColor="green"
+                size="sm"
+                textColor="green"
+              >
+              </play-components-simple-badge>
+              <play-components-simple-badge
+                *ngIf="!row.enabled"
+                title="No"
+                backgroundColor="red"
+                size="sm"
+                textColor="red"
+              >
+              </play-components-simple-badge>
+            </span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          (click)="openPackageDetailsDialog(row.id)"
+          class="cursor-pointer"
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+            No data matching "{{ input.value }}"
+          </td>
+        </tr>
+      </table>
+
+      <mat-paginator
+        [pageSizeOptions]="[10, 25, 100]"
+        aria-label="Select page"
+      ></mat-paginator>
+    </div>
+  </div>
+</ng-container>

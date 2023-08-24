@@ -1,0 +1,211 @@
+<ng-container *transloco="let t; read: 'profile-dashboard'">
+  <nav class="bg-blue-900 dark:bg-gray-800">
+    <div class="container mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div class="relative flex h-16 items-center justify-between">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <!-- Mobile menu button-->
+          <button
+            (click)="mobile = !mobile"
+            type="button"
+            class="inline-flex items-center justify-center rounded-md p-2 text-xl text-white hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Open main menu</span>
+            <fa-icon
+              *ngIf="!mobile"
+              [icon]="faBars"
+              class="block h-8 w-8"
+            ></fa-icon>
+
+            <fa-icon *ngIf="mobile" [icon]="faTimes" class="h-8 w-8"></fa-icon>
+          </button>
+        </div>
+        <div
+          class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
+        >
+          <div class="flex flex-shrink-0 items-center">
+            <a href="" [routerLink]="['/user']"
+              ><img
+                class="hidden h-12 w-auto lg:block animate__animated animate__bounceIn"
+                src="/assets/playsystems.webp"
+                alt="Workflow"
+            /></a>
+          </div>
+          <div class="hidden sm:ml-6 sm:block">
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                [routerLink]="['/user']"
+                [ngClass]="
+                  activatedRoute === '/user'
+                    ? 'bg-blue-600 text-white dark:bg-purple-600'
+                    : 'text-gray-300 hover:bg-blue-700 hover:text-white  '
+                "
+                class="px-3 py-3 rounded-md text-sm font-medium animate__animated animate__fadeIn"
+                aria-current="page"
+                >{{ t('header.dashboard') }}</a
+              >
+
+              <a
+                href="#"
+                [routerLink]="['/edi']"
+                [ngClass]="
+                  activatedRoute === '/edi'
+                    ? 'bg-blue-600 text-white dark:bg-purple-600'
+                    : 'text-gray-300 hover:bg-blue-700 hover:text-white '
+                "
+                class="px-3 py-3 rounded-md text-sm font-medium animate__animated animate__fadeIn"
+                >{{ t('header.edi-messages') }}</a
+              >
+              <a
+                href="#"
+                [routerLink]="['/invoices']"
+                [ngClass]="
+                  activatedRoute === '/invoices'
+                    ? 'bg-blue-600 text-white dark:bg-purple-600'
+                    : 'text-gray-300 hover:bg-blue-700 hover:text-white '
+                "
+                class="px-3 py-3 rounded-md text-sm font-medium animate__animated animate__fadeIn"
+                >{{ t('header.invoices') }}</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+        >
+          <!--session expiration countdown-->
+          <div class="relative ml-2 mx-auto">
+            <!--using tailwind we will build a white border with the countdown inside -->
+
+            <span class="relative inline-flex rounded-md shadow-sm">
+              <play-components-simple-spinner
+                *ngIf="showSpinner"
+                class="grow"
+                mainColor="blue"
+              >
+              </play-components-simple-spinner>
+              <button
+                *ngIf="!showSpinner"
+                type="button"
+                #tooltip="matTooltip"
+                matTooltip="Click to renew session"
+                matTooltipPosition="below"
+                matTooltipHideDelay="2500"
+                (click)="renewToken()"
+                class="animate__animated animate__fadeInDown animate__delay-1s inline-flex items-center px-2 py-1 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:text-blue-900 focus:outline-none focus:shadow-outline focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
+              >
+                {{ timeToTokenExpiration | async | date: 'HH:mm:ss' }}
+                <span
+                  *ngIf="showBadge"
+                  class="animate-pulse h-4 w-4 absolute inline-flex -top-2 -right-2 bg-blue-700 rounded-full dark:border-gray-900"
+                ></span>
+              </button>
+            </span>
+          </div>
+
+          <!-- Profile dropdown -->
+          <div class="relative ml-2">
+            <button
+              (click)="showDropDown = !showDropDown"
+              type="button"
+              class="animate__animated animate__fadeIn flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              id="user-menu-button"
+              aria-expanded="false"
+              aria-haspopup="true"
+            >
+              <span class="sr-only">Open user menu</span>
+              <img
+                ngxGravatar
+                [email]="email"
+                class="h-8 w-8 rounded-full"
+                [size]="30"
+                [fallback]="'identicon'"
+              />
+            </button>
+
+            <div
+              *ngIf="showDropDown"
+              (mouseleave)="showDropDown = false"
+              class="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+              role="menu"
+              aria-orientation="vertical"
+              aria-labelledby="user-menu-button"
+              tabindex="-1"
+            >
+              <a
+                href="#"
+                [routerLink]="['/user/profile']"
+                [ngClass]="
+                  activatedRoute === '/user/profile'
+                    ? 'bg-blue-600 text-white'
+                    : ''
+                "
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                role="menuitem"
+                tabindex="-1"
+                id="user-menu-item-0"
+                >{{ t('cards.profile') }}</a
+              >
+              <a
+                [routerLink]="['/user/settings']"
+                [ngClass]="
+                  activatedRoute === '/user/settings'
+                    ? 'bg-blue-600 text-white'
+                    : ''
+                "
+                href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                role="menuitem"
+                tabindex="-1"
+                id="user-menu-item-1"
+                >{{ t('cards.settings') }}</a
+              >
+              <a
+                (click)="openLogoutDialog('5ms', '5ms')"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                role="menuitem"
+                tabindex="-1"
+                id="user-menu-item-2"
+                >{{ t('cards.logout') }}</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div [ngClass]="mobile ? 'sm:hidden' : 'hidden'" id="mobile-menu">
+      <div class="space-y-1 px-2 pt-2 pb-3">
+        <a
+          href="#"
+          [routerLink]="['/user']"
+          [ngClass]="activatedRoute === '/user' ? 'bg-blue-600 text-white' : ''"
+          class="text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
+          aria-current="page"
+          >Dashboard</a
+        >
+
+        <a
+          href="#"
+          [routerLink]="['/edi']"
+          [ngClass]="activatedRoute === '/edi' ? 'bg-blue-600 text-white' : ''"
+          class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >Edi Messages</a
+        >
+
+        <a
+          href="#"
+          [routerLink]="['/invoices']"
+          [ngClass]="
+            activatedRoute === '/invoices' ? 'bg-blue-600 text-white' : ''
+          "
+          class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >Invoices</a
+        >
+      </div>
+    </div>
+  </nav>
+</ng-container>

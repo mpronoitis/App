@@ -1,0 +1,434 @@
+<section id="top-section" class="ml-24 mr-4 mt-4">
+  <div
+    class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-4"
+  >
+    <div class="col-start-1 col-end-4 h-20">
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 sm:px-6">
+          <h3 class="text-lg leading-6 font-medium text-gray-900">
+            Welcome to your dashboard
+          </h3>
+          <p class="mt-1 max-w-2xl text-sm text-gray-500">
+            This is a dashboard for your account. You can view your account
+            statistics and perform actions.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="col-end-7 col-span-3 bg-white overflow-hidden rounded-lg shadow-xl h-70 md:h-40"
+    >
+      <div class="px-4 py-5 sm:px-6">
+        <!-- Heading-->
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+          Quick Actions
+        </h3>
+        <!-- Responsive Flex container with buttons -->
+        <div class="flex flex-col space-y-4 md:flex-row md:space-x-2 mt-5">
+          <button
+            (click)="refresh()"
+            class="w-full h-full mt-auto bg-white tracking-wide text-gray-800 font-bold border-b-2 border-blue-500 hover:border-blue-600 hover:bg-blue-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+          >
+            <span class="mx-auto">Refresh</span>
+          </button>
+
+          <button
+            (click)="openUserCreateModal()"
+            class="w-full h-full mt-auto bg-white tracking-wide text-gray-800 font-bold border-b-2 border-blue-500 hover:border-blue-600 hover:bg-blue-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+          >
+            <span class="mx-auto">Create User</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="user-stats-edi-stats-section" class="ml-24 mt-4 mr-4">
+  <div class="grid gap-4 grid-cols-1 md:grid-cols-2">
+    <div
+      #containerRef
+      class="text-center h-80 p-6 pb-6 bg-white rounded-lg shadow-xl sm:p-8 overflow-hidden"
+    >
+      <div>
+        <h2 class="text-lg leading-6 font-medium text-gray-900">User Stats</h2>
+        <play-components-simple-chart
+          *ngIf="!userChartLoading"
+          [single]="userChartData"
+          [view]="[
+            containerRef.offsetWidth - 100,
+            containerRef.offsetHeight - 60
+          ]"
+          [widthContainer]="containerRef.offsetWidth - 100"
+          [heightContainer]="containerRef.offsetHeight - 60"
+          xAxisName="Type"
+          [showYAxisLabel]="false"
+          [showXAxisLabel]="false"
+          [showYAxis]="false"
+          [showXAxis]="true"
+          [showGridLines]="false"
+          [colorScheme]="{ domain: ['#14c6cc', '#223bdb', '#004779'] }"
+          yAxisName="Count"
+          class="animate__animated animate__fadeIn"
+        >
+        </play-components-simple-chart>
+
+        <!-- skeleton for the chart -->
+        <div *ngIf="userChartLoading" class="animate-pulse">
+          <span class="text-gray-400 text-sm">Loading User Stats...</span>
+          <div class="flex items-baseline space-x-6 mb-6">
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-56 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-64 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-80 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-80 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+          </div>
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div
+      #containerRef2
+      class="container mx-auto text-center h-80 p-6 pb-6 bg-white rounded-lg shadow-xl sm:p-8 overflow-hidden"
+    >
+      <h2 class="text-lg leading-6 font-medium text-gray-900">Edi Stats</h2>
+      <h3
+        *ngIf="!ediChartLoading"
+        class="text-sm leading-6 font-medium text-gray-900"
+      >
+        <span
+          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+        >
+          Total Documents: {{ totalEdiDocuments }}
+        </span>
+      </h3>
+      <play-components-simple-chart
+        *ngIf="!ediChartLoading"
+        [single]="ediChartData"
+        [view]="[
+          containerRef2.offsetWidth - 100,
+          containerRef2.offsetHeight - 85
+        ]"
+        [widthContainer]="containerRef2.offsetWidth - 100"
+        [heightContainer]="containerRef2.offsetHeight - 85"
+        xAxisName="Type"
+        [showYAxisLabel]="false"
+        [showXAxisLabel]="false"
+        [showYAxis]="false"
+        [showXAxis]="true"
+        [showGridLines]="false"
+        yAxisName="Count"
+        class="animate__animated animate__fadeIn"
+      >
+      </play-components-simple-chart>
+
+      <!-- skeleton for the chart -->
+      <div *ngIf="ediChartLoading" class="animate-pulse">
+        <span class="text-gray-400 text-sm">Loading Edi Stats...</span>
+        <div class="flex items-baseline space-x-6 mb-6">
+          <div
+            class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+          ></div>
+          <div
+            class="w-full h-56 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+          ></div>
+          <div
+            class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+          ></div>
+          <div
+            class="w-full h-64 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+          ></div>
+          <div
+            class="w-full h-80 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+          ></div>
+          <div
+            class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+          ></div>
+          <div
+            class="w-full h-80 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+          ></div>
+        </div>
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="20i-stats-whmcs-stats-section" class="ml-24 mt-4 mr-4">
+  <div class="grid gap-4 grid-cols-1 md:grid-cols-2">
+    <div
+      #containerRef3
+      class="text-center h-80 p-6 pb-6 bg-white rounded-lg shadow-xl sm:p-8 overflow-hidden"
+    >
+      <div>
+        <h2 class="text-lg leading-6 font-medium text-gray-900">20i Stats</h2>
+        <play-components-simple-chart
+          *ngIf="!twentyiChartLoading"
+          [single]="twentyiChartData"
+          [view]="[
+            containerRef3.offsetWidth - 100,
+            containerRef3.offsetHeight - 60
+          ]"
+          [widthContainer]="containerRef3.offsetWidth - 100"
+          [heightContainer]="containerRef3.offsetHeight - 60"
+          xAxisName="Type"
+          [showYAxisLabel]="false"
+          [showXAxisLabel]="false"
+          [showYAxis]="false"
+          [showXAxis]="true"
+          [showGridLines]="false"
+          [colorScheme]="{ domain: ['#14c6cc', '#223bdb', '#004779'] }"
+          yAxisName="Count"
+          class="animate__animated animate__fadeIn"
+        >
+        </play-components-simple-chart>
+
+        <!-- skeleton for the chart -->
+        <div *ngIf="twentyiChartLoading" class="animate-pulse">
+          <span class="text-gray-400 text-sm">Loading 20i Stats...</span>
+          <div class="flex items-baseline space-x-6 mb-6">
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-56 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-64 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-80 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-80 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+          </div>
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div
+      #containerRef4
+      class="text-center h-80 p-6 pb-6 bg-white rounded-lg shadow-xl sm:p-8 overflow-hidden"
+    >
+      <div>
+        <h2 class="text-lg leading-6 font-medium text-gray-900">Whmcs Stats</h2>
+        <span
+          *ngIf="!whmcsChartLoading"
+          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+        >
+          Monthly Revenue: {{ totalWhmcsRevenue | currency: '€' }}
+        </span>
+        <play-components-simple-chart
+          *ngIf="!whmcsChartLoading"
+          [single]="whmcsChartData"
+          [view]="[
+            containerRef4.offsetWidth - 100,
+            containerRef4.offsetHeight - 80
+          ]"
+          [widthContainer]="containerRef4.offsetWidth - 100"
+          [heightContainer]="containerRef4.offsetHeight - 80"
+          xAxisName="Type"
+          [showYAxisLabel]="false"
+          [showXAxisLabel]="false"
+          [showYAxis]="false"
+          [showXAxis]="true"
+          [showGridLines]="false"
+          [colorScheme]="{ domain: ['#14c6cc', '#223bdb', '#004779'] }"
+          yAxisName="Count"
+          class="animate__animated animate__fadeIn"
+        >
+        </play-components-simple-chart>
+
+        <!-- skeleton for the chart -->
+        <div *ngIf="userChartLoading" class="animate-pulse">
+          <span class="text-gray-400 text-sm">Loading Whmcs Stats...</span>
+          <div class="flex items-baseline space-x-6 mb-6">
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-56 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-64 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-80 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-80 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+          </div>
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- section for pylon stats -->
+<section id="pylon-stats-mbam-section" class="ml-24 mt-4 mr-4">
+  <div class="grid gap-4 grid-cols-1 md:grid-cols-2">
+    <div
+      #containerRef5
+      class="text-center h-80 p-6 pb-6 bg-white rounded-lg shadow-xl sm:p-8 overflow-hidden"
+    >
+      <div>
+        <h2 class="text-lg leading-6 font-medium text-gray-900">Pylon Stats</h2>
+        <!-- blue badge indicating Last Month -->
+        <span
+          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+        >
+          Last Month
+        </span>
+
+        <play-components-simple-chart
+          *ngIf="!pylonChartLoading"
+          [single]="pylonChartData"
+          [view]="[
+            containerRef5.offsetWidth - 100,
+            containerRef5.offsetHeight - 80
+          ]"
+          [widthContainer]="containerRef5.offsetWidth - 100"
+          [heightContainer]="containerRef5.offsetHeight - 80"
+          xAxisName="Type"
+          [showYAxisLabel]="false"
+          [showXAxisLabel]="false"
+          [showYAxis]="false"
+          [showXAxis]="true"
+          [showGridLines]="false"
+          [colorScheme]="{ domain: ['#14c6cc', '#223bdb', '#004779'] }"
+          yAxisName="Count"
+          class="animate__animated animate__fadeIn"
+        >
+        </play-components-simple-chart>
+
+        <!-- skeleton for the chart -->
+        <div *ngIf="pylonChartLoading" class="animate-pulse">
+          <span class="text-gray-400 text-sm">Loading Pylon Stats...</span>
+          <div class="flex items baseline space-x-6 mb-6">
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-56 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-64 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-80 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-80 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+          </div>
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div
+      #containerRef6
+      class="text-center h-80 p-6 pb-6 bg-white rounded-lg shadow-xl sm:p-8 overflow-hidden"
+    >
+      <div>
+        <h2 class="text-lg leading-6 font-medium text-gray-900">
+          Malwarebytes Stats
+        </h2>
+
+        <play-components-simple-chart
+          *ngIf="!mbamChartLoading"
+          [single]="mbamChartData"
+          [view]="[
+            containerRef6.offsetWidth - 100,
+            containerRef6.offsetHeight - 70
+          ]"
+          [widthContainer]="containerRef6.offsetWidth - 100"
+          [heightContainer]="containerRef6.offsetHeight - 70"
+          xAxisName="Type"
+          [showYAxisLabel]="false"
+          [showXAxisLabel]="false"
+          [showYAxis]="false"
+          [showXAxis]="true"
+          [showGridLines]="false"
+          [colorScheme]="{ domain: ['#14c6cc', '#223bdb', '#004779'] }"
+          yAxisName="Count"
+          class="animate__animated animate__fadeIn"
+        >
+        </play-components-simple-chart>
+
+        <!-- skeleton for the chart -->
+        <div *ngIf="mbamChartLoading" class="animate-pulse">
+          <span class="text-gray-400 text-sm"
+            >Loading Malwarebytes Stats...</span
+          >
+          <div class="flex items baseline space-x-6 mb-6">
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-56 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-64 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-80 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-72 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+            <div
+              class="w-full h-80 bg-gray-200 rounded-t-lg dark:bg-gray-700"
+            ></div>
+          </div>
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="uptime-stats-section" class="ml-24 mt-4 mr-4">
+  <div class="grid gap-4 grid-cols-1">
+    <div class="bg-white rounded-lg shadow-xl h-96">
+      <play-app-kuma-notification></play-app-kuma-notification>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,66 @@
+<!-- using tailwind we will create a feed of uptime notifications -->
+<section *ngIf="!loading" class="bg-gray-100">
+  <!-- loop notifications array and create a card grid -->
+  <ng-container *ngFor="let notification of notifications; let i = index">
+    <div
+      class="flex flex-col md:flex-row md:items-center md:justify-between p-4 bg-white rounded-lg shadow-lg mb-4"
+    >
+      <!-- left side -->
+      <div class="flex flex-col md:flex-row md:items-center">
+        <!-- icon -->
+        <div
+          class="flex items center justify-center w-12 h-12 rounded-full mr-4"
+          [ngClass]="
+            notification.msg.includes('200')
+              ? 'bg-green-100 text-green-500'
+              : 'bg-red-100 text-red-500'
+          "
+        >
+          <fa-icon
+            *ngIf="notification.msg.includes('200')"
+            class="text-2xl mt-2"
+            [icon]="faCheckCircle"
+          ></fa-icon>
+          <fa-icon
+            *ngIf="!notification.msg.includes('200')"
+            class="text-2xl mt-2"
+            [icon]="faExclamationCircle"
+          ></fa-icon>
+        </div>
+        <!-- title -->
+        <div class="flex flex-col">
+          <h3 class="text-lg font-semibold text-gray-700">
+            {{ notification.monitor.url }}
+          </h3>
+          <p class="text-sm text-gray-500">
+            {{ notification.msg.replace('?', '') }}
+          </p>
+        </div>
+      </div>
+      <!-- right side -->
+      <div class="flex flex-col md:flex-row md:items-center mt-4 md:mt-0">
+        <!-- date -->
+        <p class="text-sm text-gray-500 mr-4">
+          {{ notification.receivedAt | date: 'medium' }}
+        </p>
+        <!-- button -->
+        <button
+          (click)="showIncidents(notification.monitor.url)"
+          class="bg-gray-100 text-gray-500 text-sm px-4 py-2 rounded-lg hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
+        >
+          <fa-icon [icon]="faEllipsisH"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</section>
+
+<div *ngIf="loading" class="text-center pt-5 mt-5">
+  <!--Show spinner if loading-->
+  <play-components-simple-spinner
+    *ngIf="loading"
+    class="grow"
+    mainColor="blue"
+    id="spinner"
+  ></play-components-simple-spinner>
+</div>

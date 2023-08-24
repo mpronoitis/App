@@ -1,0 +1,96 @@
+<h2 mat-dialog-title>Domain Search</h2>
+<mat-dialog-content class="mat-typography">
+  <div *ngIf="loading" class="text-center pt-5 mt-5">
+    <play-components-simple-spinner
+      *ngIf="loading"
+      class="grow"
+      mainColor="blue"
+      id="spinner"
+    ></play-components-simple-spinner>
+  </div>
+  <!-- tailwind search bar for searching a domain -->
+  <section *ngIf="!loading && !domainResult">
+    <div class="flex flex-col">
+      <div class="relative">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+          <fa-icon [icon]="faSearchPlus"></fa-icon>
+        </span>
+        <input
+          #searchInput
+          (keyup.enter)="searchDomain(searchInput.value)"
+          class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          placeholder="Search for a domain"
+          type="text"
+        />
+      </div>
+    </div>
+  </section>
+  <form
+    [formGroup]="form"
+    *ngIf="domainResult && !loading"
+    class="w-full max-w-lg mx-auto my-5"
+  >
+    <!--tailwind textarea with availableTlds-->
+    <div class="mt-5">
+      <div class="flex flex-col">
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <fa-icon [icon]="faSearchPlus"></fa-icon>
+          </span>
+          <input
+            formControlName="domain"
+            class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            type="text"
+            readonly
+          />
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div *ngIf="!hasTld" class="w-full px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="availableTlds"
+        >
+          Available Tlds
+        </label>
+        <textarea
+          readonly
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          id="availableTlds"
+          type="text"
+          formControlName="availableTlds"
+          [rows]="getTextAreaHeight()"
+        ></textarea>
+      </div>
+    </div>
+    <!-- input for displaying tld availability -->
+    <div *ngIf="hasTld" class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="tldAvailability"
+        >
+          Availability
+        </label>
+        <input
+          readonly
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          id="tldAvailability"
+          type="text"
+          formControlName="availability"
+        />
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+    cdkFocusInitial
+    mat-button
+    mat-dialog-close
+  >
+    Exit
+  </button>
+</mat-dialog-actions>

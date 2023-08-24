@@ -1,0 +1,283 @@
+<ng-container *transloco="let t; read: 'settings-info'">
+  <!-- <div class="overflow-hidden md:overflow-auto"> -->
+  <div class="min-h-screen -mb-50">
+    <section class="bg-gray-200">
+      <div class="container mx-auto h-48 pt-5 px-3 mb-6">
+        <h1 class="text-xl font-bold text-blue-900 ml-5">
+          {{ t('settings-label') }}
+        </h1>
+        <p class="text-sm text-gray-500 pl-2">
+          {{ t('settings-header') }}
+        </p>
+
+        <form class="flex items-center">
+          <label for="simple-search" class="sr-only">
+            {{ t('search-label') }}</label
+          >
+          <div class="relative w-full">
+            <div
+              class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <input
+              type="text"
+              id="simple-search"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="  {{ t('search-label') }}"
+              required
+            />
+          </div>
+          <play-components-simple-button
+            title="{{ t('search-label') }}"
+            [icon]="faSearch"
+            [type]="'rounded-full'"
+          ></play-components-simple-button>
+        </form>
+      </div>
+    </section>
+
+    <div *ngIf="loading" class="text-center pt-5 mt-5">
+      <play-components-simple-spinner
+        *ngIf="loading"
+        class="grow"
+        mainColor="blue"
+      >
+      </play-components-simple-spinner>
+    </div>
+    <section *ngIf="!loading" class="container mx-auto pt-10">
+      <play-components-simple-alert
+        *ngIf="showErrorMessage"
+        type="danger"
+        [text]="errorMessage!"
+        title="Error!"
+      >
+      </play-components-simple-alert>
+      <play-components-simple-alert
+        *ngIf="showSuccessMessage"
+        type="success"
+        [text]="successMessage!"
+        title="Done!"
+      >
+      </play-components-simple-alert>
+      <div class="w-full">
+        <div class="w-full md:w-1/2 px-3 mb-6">
+          <h3 class="text-blue-900 text-sm font-bold">
+            {{ t('change-password') }}
+          </h3>
+          <p class="text-sm text-gray-500">{{ t('password-detail') }}</p>
+        </div>
+
+        <div class="flex flex-wrap md:-mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label
+              class="block tracking-wide text-gray-700 text-xs font-bold mb-2 pl-3"
+              for="grid-first-name"
+            >
+              {{ t('old-password') }}
+            </label>
+            <div class="relative w-full">
+              <div class="absolute inset-y-0 right-0 flex items-center px-2">
+                <input class="hidden" id="toggle" type="checkbox" />
+
+                <label
+                  (click)="showOldPassword = !showOldPassword"
+                  class="hover:bg-gray-400 rounded-full px-3 py-1 text-sm text-gray-600 font-mono cursor-pointer"
+                  for="toggle"
+                >
+                  <fa-icon
+                    *ngIf="showOldPassword"
+                    [icon]="faEye"
+                    class="w-5 h-5"
+                  ></fa-icon>
+                  <fa-icon
+                    *ngIf="!showOldPassword"
+                    [icon]="faEyeSlash"
+                    class="w-5 h-5"
+                  ></fa-icon>
+                </label>
+              </div>
+              <input
+                [(ngModel)]="oldPassword"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="password"
+                type="{{ showOldPassword ? 'text' : 'password' }}"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label
+              class="block tracking-wide text-gray-700 text-xs font-bold mb-2 pl-3"
+              for="grid-last-name"
+            >
+              {{ t('new-password') }}
+            </label>
+            <div class="relative w-full">
+              <div class="absolute inset-y-0 right-0 flex items-center px-2">
+                <input class="hidden" id="toggle" type="checkbox" />
+                <label
+                  (click)="showNewPassword = !showNewPassword"
+                  class="hover:bg-gray-400 rounded-full px-3 py-1 text-sm text-gray-600 font-mono cursor-pointer"
+                  for="toggle"
+                >
+                  <fa-icon
+                    *ngIf="showNewPassword"
+                    [icon]="faEye"
+                    class="w-5 h-5"
+                  ></fa-icon>
+                  <fa-icon
+                    *ngIf="!showNewPassword"
+                    [icon]="faEyeSlash"
+                    class="w-5 h-5"
+                  ></fa-icon>
+                </label>
+              </div>
+              <input
+                [(ngModel)]="newPassword"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="password"
+                type="{{ showNewPassword ? 'text' : 'password' }}"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div
+            *ngIf="oldPassword && newPassword"
+            (click)="updatePassword()"
+            class="w-full px-3 pt-3 -mb-6 md:w-1/4"
+          >
+            <button
+              type="button"
+              id="updatePassword"
+              class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-green-300 rounded-lg hover:bg-green-900 focus:ring-1 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            >
+              {{ t('save') }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="border border-gray-200 my-10" />
+
+      <div class="grid grid-cols-2">
+        <!--Change Language -->
+        <div class="w-auto">
+          <div class="w-full md:w-1/2 px-3 mb-6">
+            <h3 class="text-blue-900 text-sm font-bold">
+              {{ t('change-language') }}
+            </h3>
+            <p class="text-sm text-gray-500">{{ t('language-detail') }}</p>
+          </div>
+
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label
+              class="block tracking-wide text-gray-700 text-xs font-bold mb-2 pl-3"
+              for="grid-first-name"
+            >
+              {{ t('language') }}
+            </label>
+            <div class="relative w-full">
+              <mat-form-field appearance="fill">
+                <mat-select
+                  (selectionChange)="changeLanguage()"
+                  [(value)]="language"
+                >
+                  <mat-option value="en">English</mat-option>
+                  <mat-option value="el">Ελληνικά</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <play-components-simple-button
+                *ngIf="languageChanged"
+                (click)="saveLanguage()"
+                [title]="t('save')"
+                [type]="'primary'"
+                [icon]="faSave"
+                [type]="'rounded-full'"
+                size="w-auto"
+                id="languageChanged"
+              >
+                >
+              </play-components-simple-button>
+
+              <play-components-simple-alert
+                *ngIf="showChangeLanguageMessage"
+                type="info"
+                [text]="successMessage!"
+                title="You must save your prefered language in order to see the changes!"
+                id="showChangeLanguageMessage"
+              >
+              </play-components-simple-alert>
+            </div>
+          </div>
+        </div>
+        <!--Change Theme Selection-->
+
+        <div class="w-auto">
+          <div class="w-full md:w-1/2 px-3 mb-6">
+            <h3 class="text-blue-900 text-sm font-bold">
+              {{ t('change-theme') }}
+            </h3>
+            <p class="text-sm text-gray-500">{{ t('theme-detail') }}</p>
+          </div>
+
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label
+              class="block tracking-wide text-gray-700 text-xs font-bold mb-2 pl-3"
+              for="grid-first-name"
+            >
+              {{ t('theme') }}
+            </label>
+            <div class="relative w-full">
+              <mat-form-field appearance="fill">
+                <mat-select (selectionChange)="changeTheme()" [(value)]="theme">
+                  <mat-option value="light">Light</mat-option>
+
+                  <mat-option value="dark">Dark</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <play-components-simple-button
+                *ngIf="themeChanged"
+                (click)="saveTheme()"
+                [title]="t('save')"
+                [type]="'primary'"
+                [icon]="faSave"
+                [type]="'rounded-full'"
+                size="w-auto"
+                id="themeChanged"
+              >
+                >
+              </play-components-simple-button>
+
+              <play-components-simple-alert
+                *ngIf="showChangeThemeMessage"
+                type="info"
+                [text]="successMessage!"
+                title="You must save your prefered theme in order to see the changes!"
+                id="showChangeThemeMessage"
+              >
+              </play-components-simple-alert>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="border border-gray-200 my-10" />
+      <div class="h-10"></div>
+    </section>
+  </div>
+</ng-container>

@@ -1,0 +1,13 @@
+import { MbamOneViewGetEndpointsResponseModelRemoteIntrusionDetectionAndPrevention } from '@play.app/types/Mbam/MbamOneViewGetEndpointsResponseModelRemoteIntrusionDetectionAndPrevention';
+import { MbamOneViewGetEndpointsResponseModelActiveResponseShell } from '@play.app/types/Mbam/MbamOneViewGetEndpointsResponseModelActiveResponseShell';
+import { MbamOneViewGetEndpointsResponseModelAssetManager } from '@play.app/types/Mbam/MbamOneViewGetEndpointsResponseModelAssetManager';
+import { MbamOneViewGetEndpointsResponseModelEndpointDetectionAndResponse } from '@play.app/types/Mbam/MbamOneViewGetEndpointsResponseModelEndpointDetectionAndResponse';
+import { MbamOneViewGetEndpointsResponseModelEndpointProtection } from '@play.app/types/Mbam/MbamOneViewGetEndpointsResponseModelEndpointProtection';
+
+export interface MbamOneViewGetEndpointsResponseModelPlugins {
+  endpoint_protection: MbamOneViewGetEndpointsResponseModelEndpointProtection;
+  active_response_shell: MbamOneViewGetEndpointsResponseModelActiveResponseShell;
+  remote_intrusion_detection_and_prevention: MbamOneViewGetEndpointsResponseModelRemoteIntrusionDetectionAndPrevention;
+  asset_manager: MbamOneViewGetEndpointsResponseModelAssetManager;
+  endpoint_detection_and_response: MbamOneViewGetEndpointsResponseModelEndpointDetectionAndResponse;
+}

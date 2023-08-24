@@ -1,0 +1,219 @@
+<div class="h-full ml-14 mt-14 mb-10 md:ml-20">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-wrap -m-4 text-center">
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [routerLink]="['/edi/models']"
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faFile"
+            class="text-blue-500 text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Edi Models</p>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [routerLink]="['/edi/connections']"
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faNetworkWired"
+            class="text-blue-500 text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Edi Connections</p>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [routerLink]="['/edi/organizations']"
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faSiteMap"
+            class="text-blue-500 text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Edi Organizations</p>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [routerLink]="['/edi/profile']"
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faBuilding"
+            class="text-blue-500 text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Edi Profile</p>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [routerLink]="['/edi/segments']"
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faHome"
+            class="text-blue-500 text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Edi Segment</p>
+        </div>
+      </div>
+
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [routerLink]="['/edi/variables']"
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faHome"
+            class="text-blue-500 text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Edi Variable</p>
+        </div>
+      </div>
+      <!--EdiCredit-->
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+        <div
+          [routerLink]="['/edi/credit']"
+          class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+        >
+          <fa-icon
+            [icon]="faCreditCard"
+            class="text-blue-500 text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+          ></fa-icon>
+          <p class="text-xl font-bold pt-2 mt-2">Edi Credit</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--DOCUMENTS MANAGMENT-->
+  <section class="bg-gray-200">
+    <div class="container mx-auto h-25 pt-5 pb-5">
+      <h1 class="text-2xl font-bold text-blue-900">Edi Documents</h1>
+      <p class="text-sm text-gray-500">
+        Check the actions related to edi documents
+      </p>
+    </div>
+  </section>
+
+  <!--CHART WITH ALL DOCUMENTS-->
+
+  <section class="overflow-hidden md:overflow-x-hidden container mx-auto pt-14">
+    <play-components-simple-spinner
+      *ngIf="loading"
+    ></play-components-simple-spinner>
+    <div *ngIf="!loading" #containerRef class="max-w-auto max-h-auto">
+      <play-components-simple-line-chart
+        [single]="data"
+        [view]="[containerRef.offsetWidth, containerRef.offsetHeight]"
+        xAxisName="Day"
+        yAxisName="Documents"
+        class="animate__animated animate__fadeIn"
+      >
+      </play-components-simple-line-chart>
+    </div>
+  </section>
+
+  <!--TABLE-->
+
+  <div
+    class="w-full container mx-auto bg-gray-200 h-auto my-10 mb-4 pb-2 pl-2 pr-2 pt-2"
+    *ngIf="!loading"
+  >
+    <!--Container With Table-->
+    <div class="container mx-auto">
+      <!--tailwind , 2 buttons, flex -->
+      <mat-form-field appearance="standard">
+        <mat-label>Filtering 🔍</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="Ex. INVOIC"
+          #input
+        />
+      </mat-form-field>
+      <div class="flex justify-between pl-2 pb-2">
+        <div class="flex space-x-4">
+          <play-components-simple-button
+            (click)="getEdiDocuments(1, 1)"
+            title="Refresh"
+            color="blue"
+            [icon]="faSync"
+            [loading]="loading"
+          ></play-components-simple-button>
+          <play-components-simple-button
+            *ngIf="unSentDocuments !== 0"
+            (click)="openSendDialog('0ms', '0ms')"
+            [icon]="faCloudUpload"
+            title="Send"
+          >
+          </play-components-simple-button>
+        </div>
+        <div class="flex"></div>
+      </div>
+      <div class="mat-elevation-z8">
+        <table *ngIf="!loading" mat-table [dataSource]="dataSource" matSort>
+          <!--customer_Id Column-->
+          <ng-container matColumnDef="customerName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              CustomerName
+            </th>
+            <td mat-cell *matCellDef="let row">{{ row.customerName }}</td>
+          </ng-container>
+
+          <!--Title Document-->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+            <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+          </ng-container>
+
+          <!-- isSent Column -->
+          <ng-container matColumnDef="isSent">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>isSent</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="ml-auto">
+                <play-components-simple-badge
+                  *ngIf="row.isSent"
+                  title="Sent"
+                  backgroundColor="green"
+                  size="sm"
+                  textColor="green"
+                >
+                </play-components-simple-badge>
+                <play-components-simple-badge
+                  *ngIf="!row.isSent"
+                  title="Not Sent"
+                  backgroundColor="red"
+                  size="sm"
+                  textColor="red"
+                >
+                </play-components-simple-badge>
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              <div class="flex justify-center items-center h-full">
+                <span class="text-gray-500">No data to display</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          aria-label="Select page"
+        ></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

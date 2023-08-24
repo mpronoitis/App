@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "admin": "apps/admin",
+    "admin-e2e": "apps/admin-e2e",
+    "app-env": "libs/app-env",
+    "components": "libs/components",
+    "customer": "apps/customer",
+    "customer-e2e": "apps/customer-e2e",
+    "directives": "libs/directives",
+    "services": "libs/services",
+    "types": "libs/types"
+  }
+}

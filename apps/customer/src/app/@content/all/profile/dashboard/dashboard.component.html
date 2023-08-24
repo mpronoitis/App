@@ -1,0 +1,97 @@
+<!-- <play-app-header></play-app-header> -->
+<div *ngIf="loading" class="text-center pt-5 mt-5">
+  <play-components-simple-spinner *ngIf="loading" class="grow" mainColor="blue">
+  </play-components-simple-spinner>
+</div>
+<ng-container *transloco="let t; read: 'profile-dashboard'">
+  <div class="flex flex-col min-h-screen -mb-50">
+    <section *ngIf="!loading" class="bg-gray-200 dark:bg-gray-700">
+      <div class="container mx-auto h-25 pt-5 pb-5">
+        <h1 class="text-2xl font-bold text-blue-900 dark:text-purple-600">
+          {{ t('welcome') }}
+        </h1>
+        <p class="text-sm text-gray-500 dark:text-purple-500">
+          {{
+            t('hero', {
+              name: userProfile?.firstName,
+              org: userProfile?.companyName
+            })
+          }}
+        </p>
+        <p id="last-login" class="text-sm text-gray-500 dark:text-purple-500">
+          Last Login {{ lastLogin | date: 'short' }}
+        </p>
+      </div>
+    </section>
+
+    <section *ngIf="!loading" class="text-gray-600 body-font">
+      <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-wrap -m-4 text-center">
+          <div
+            [routerLink]="['/edi']"
+            class="p-4 md:w-1/4 sm:w-1/2 w-full group"
+          >
+            <div
+              class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+            >
+              <fa-icon
+                [icon]="faEnvelopeOpenText"
+                class="text-blue-500 text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+              ></fa-icon>
+              <p class="text-xl font-bold pt-2 mt-2">{{ t('cards.edi') }}</p>
+            </div>
+          </div>
+
+          <div
+            [routerLink]="['/invoices']"
+            class="p-4 md:w-1/4 sm:w-1/2 w-full group"
+          >
+            <div
+              class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+            >
+              <fa-icon
+                [icon]="faFileInvoice"
+                class="text-blue-500 text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+              ></fa-icon>
+              <p class="text-xl font-bold pt-2 mt-2">
+                {{ t('cards.invoices') }}
+              </p>
+            </div>
+          </div>
+          <div
+            [routerLink]="['/user/profile']"
+            class="p-4 md:w-1/4 sm:w-1/2 w-full group"
+          >
+            <div
+              class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+            >
+              <fa-icon
+                [icon]="faUserCircle"
+                class="text-blue-500 text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+              ></fa-icon>
+              <p class="text-xl font-bold pt-2 mt-2">
+                {{ t('cards.profile') }}
+              </p>
+            </div>
+          </div>
+          <div
+            [routerLink]="['/user/settings']"
+            class="p-4 md:w-1/4 sm:w-1/2 w-full group"
+          >
+            <div
+              class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+            >
+              <fa-icon
+                [icon]="faUserCog"
+                class="text-blue-500 text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+              ></fa-icon>
+              <p class="text-xl font-bold pt-2 mt-2">
+                {{ t('cards.settings') }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</ng-container>

@@ -1,0 +1,134 @@
+<div class="h-full ml-14 mt-14 mb-10 md:ml-20">
+  <!--Initial text EDI VARIABLE-->
+  <section class="bg-gray-200">
+    <div class="container mx-auto h-25 pt-5 pb-5">
+      <h1 class="text-2xl font-bold text-blue-900">20i Dashboard</h1>
+      <p class="text-sm text-gray-500">Manage your 20i hosting</p>
+    </div>
+  </section>
+
+  <!--Cards-->
+  <section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-wrap -m-4 text-center">
+        <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+          <div
+            [ngClass]="
+              show_domains_table && !loading ? 'bg-blue-900 text-white' : ''
+            "
+            (click)="!loading ? getDomains() : ''"
+            class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+          >
+            <fa-icon
+              [icon]="faTag"
+              [ngClass]="
+                show_domains_table && !loading ? 'text-white' : 'text-blue-500'
+              "
+              class="text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+            ></fa-icon>
+            <p class="text-xl font-bold pt-2 mt-2">Domain Names</p>
+          </div>
+        </div>
+
+        <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+          <div
+            [ngClass]="
+              show_packages_table && !loading ? 'bg-blue-900 text-white' : ''
+            "
+            (click)="!loading ? getPackages() : ''"
+            class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+          >
+            <fa-icon
+              [icon]="faBoxesAlt"
+              [ngClass]="
+                show_packages_table && !loading ? 'text-white' : 'text-blue-500'
+              "
+              class="text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+            ></fa-icon>
+            <p class="text-xl font-bold pt-2 mt-2">Hosting Packages</p>
+          </div>
+        </div>
+        <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+          <div
+            [ngClass]="
+              show_package_types_table && !loading
+                ? 'bg-blue-900 text-white'
+                : ''
+            "
+            (click)="!loading ? getPackageTypes() : ''"
+            class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+          >
+            <fa-icon
+              [ngClass]="
+                show_package_types_table && !loading
+                  ? 'text-white'
+                  : 'text-blue-500'
+              "
+              [icon]="faHandshake"
+              class="text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+            ></fa-icon>
+            <p class="text-xl font-bold pt-2 mt-2">Reseller Management</p>
+          </div>
+        </div>
+        <div class="p-4 md:w-1/4 sm:w-1/2 w-full group">
+          <div
+            [ngClass]="
+              show_users_table && !loading ? 'bg-blue-900 text-white' : ''
+            "
+            (click)="!loading ? getStackUsers() : ''"
+            class="border-2 border-gray-200 px-4 py-6 rounded-lg group-hover:bg-blue-900 group-hover:text-white cursor-pointer"
+          >
+            <fa-icon
+              [ngClass]="
+                show_users_table && !loading ? 'text-white' : 'text-blue-500'
+              "
+              [icon]="faUsers"
+              class="text-5xl group-hover:text-white w-12 h-12 mb-3 inline-block"
+            ></fa-icon>
+            <p class="text-xl font-bold pt-2 mt-2">Users Management</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div *ngIf="loading" class="text-center pt-5 mt-5">
+    <play-components-simple-spinner
+      *ngIf="loading"
+      class="grow"
+      mainColor="blue"
+      id="spinner"
+    ></play-components-simple-spinner>
+  </div>
+  <section *ngIf="!loading">
+    <!-- main content , contains a mat-expansion-panel  that will be centered-->
+    <div class="container mx-auto h-25 pt-5 pb-5">
+      <mat-expansion-panel [expanded]="expanded">
+        <mat-expansion-panel-header> </mat-expansion-panel-header>
+
+        <ng-template matExpansionPanelContent>
+          <play-app-twentyi-packages-table
+            *ngIf="show_packages_table"
+            [packages]="packages"
+            (refreshPackages)="getPackages()"
+            (startMassScan)="startMalwareScan($event)"
+          ></play-app-twentyi-packages-table>
+          <play-app-twentyi-domains-table
+            *ngIf="show_domains_table"
+            (refreshDomains)="getDomains()"
+            [domains]="domains"
+          ></play-app-twentyi-domains-table>
+          <play-app-twentyi-package-types-table
+            *ngIf="show_package_types_table"
+            [packageTypes]="packageTypes"
+          ></play-app-twentyi-package-types-table>
+          <play-app-twentyi-users-table
+            [users]="stackUsers"
+            (refreshUsers)="getStackUsers()"
+            *ngIf="show_users_table"
+          ></play-app-twentyi-users-table>
+        </ng-template>
+      </mat-expansion-panel>
+    </div>
+  </section>
+</div>

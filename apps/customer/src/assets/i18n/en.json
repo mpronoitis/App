@@ -1,0 +1,111 @@
+{
+  "foo": "Foo",
+  "bar": "Bar",
+  "profile-dashboard": {
+    "header": {
+      "dashboard": "Dashboard",
+      "edi-messages": "Edi Messages",
+      "invoices": "Invoices"
+    },
+    "welcome": "Welcome",
+    "hero": "Logged in as {{name}} as a member of {{org}}",
+    "cards": {
+      "edi": "Edi Messages",
+      "profile": "Profile",
+      "settings": "Settings",
+      "logout": "Sign out",
+      "invoices": "Invoices"
+    },
+    "logout-dialog": {
+      "title": "Logout",
+      "desc": "Are you sure you want to logout?",
+      "cancel": "No",
+      "confirm": "Yes"
+    }
+  },
+  "profile-info": {
+    "first-name": "First Name",
+    "last-name": "Last Name",
+    "company-name": "Company Name",
+    "afm": "AFM",
+    "date-birth": "Date of Birth",
+    "choose-date": "Choose date",
+    "edit-label": "Edit",
+    "save-label": "Save",
+    "cancel-label": "Cancel"
+  },
+  "settings-info": {
+    "settings-header": "In this page you have the ability to toggle settings regarding your preferences and security!",
+    "settings-label": "Settings",
+    "search-label": "Search",
+    "change-password": "Change Password",
+    "password-detail": "Please keep your password a secret!",
+    "old-password": "Old Password",
+    "new-password": "New Password",
+    "change-language": "Change Language",
+    "change-theme": "Change Theme",
+    "language-detail": "Select the language of your choice",
+    "theme-detail": "Select the theme of your choice",
+    "language": "Language",
+    "theme": "Theme",
+    "save": "Save"
+  },
+
+  "invoice-info": {
+    "invoicing": "Invoicing",
+    "invoice-details": "View your invoices and payments in one place",
+    "invoice-code": "Invoice Code",
+    "invoice-date": "Invoice Date",
+    "total-amount": "Total Amount",
+    "total-tax": "Total Tax",
+    "refresh": "Refresh",
+    "filter": "Filter"
+  },
+  "edi-dashboard": {
+    "hero": "In this section you can manage your EDIFACT communication",
+    "detail": "Monthly Traffic",
+    "cards": {
+      "documents": "Documents",
+      "profile": "Profiles",
+      "connections": "Connections"
+    },
+    "graph_data": {
+      "month": "Month",
+      "documents": "Documents"
+    },
+    "edi-documents-table": {
+      "refresh_label": "Refresh",
+      "title": "Title",
+      "processed": "Processed",
+      "sent": "Sent",
+      "created_at": "Created at",
+      "waiting": "Waiting",
+      "upload": "Upload",
+      "filter_label": "Filter",
+      "row_no_data": "You have no edi documents",
+      "information-edi-dialog": {
+        "title": "Document Information",
+        "close": "Close"
+      },
+      "send-edi-dialog": {
+        "label": "Are you sure you want to upload {{ totalDocuments }} EDI documents?",
+        "title": "Upload EDI",
+        "close": "Close",
+        "no-label": "No",
+        "yes-label": "Yes"
+      }
+    },
+    "edi-connections-table": {
+      "refresh_label": "Refresh",
+      "hostname": "Hostname",
+      "username": "Username",
+      "filter_label": "Filter"
+    },
+    "edi-profiles-table": {
+      "title": "Title",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "create-profile": "Create Profile"
+    }
+  }
+}

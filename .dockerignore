@@ -1,0 +1,8 @@
+#ignore .git
+.git
+#ignore .DS_Store
+.DS_Store
+#ignore .idea
+.idea
+#ignore .vscode
+.vscode

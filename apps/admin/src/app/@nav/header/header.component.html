@@ -1,0 +1,439 @@
+<!-- Mobile menu button-->
+
+<button
+  (click)="mobile = !mobile"
+  type="button"
+  class="md:hidden inline-flex items-center justify-center rounded-md p-2 text-xl text-white hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+  aria-controls="mobile-menu"
+  aria-expanded="false"
+>
+  <span class="sr-only">Open main menu</span>
+  <fa-icon
+    *ngIf="!mobile"
+    [icon]="faBars"
+    class="h-8 w-8 text-blue-500"
+  ></fa-icon>
+
+  <fa-icon
+    *ngIf="mobile"
+    [icon]="faTimes"
+    class="h-8 w-8 text-blue-500"
+  ></fa-icon>
+</button>
+
+<!-- Mobile menu, show/hide based on menu state. -->
+<div
+  [ngClass]="mobile ? 'block' : 'hidden'"
+  id="mobile-menu"
+  class="md:hidden bg-blue-500"
+>
+  <div class="space-y-1 px-2 pt-2 pb-3">
+    <a
+      href="#"
+      [routerLink]="['/dashboard']"
+      [ngClass]="
+        activatedRoute === '/dashboard' ? 'bg-blue-600 text-white' : ''
+      "
+      class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+      aria-current="page"
+      >Dashboard</a
+    >
+
+    <a
+      href="#"
+      [routerLink]="['/users']"
+      [ngClass]="activatedRoute === '/users' ? 'bg-blue-600 text-white' : ''"
+      class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+      >Users</a
+    >
+
+    <a
+      href="#"
+      [routerLink]="['/edi']"
+      [ngClass]="activatedRoute === '/edi' ? 'bg-blue-600 text-white' : ''"
+      class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+      >Edi</a
+    >
+
+    <a
+      href="#"
+      [routerLink]="['/20i']"
+      [ngClass]="activatedRoute === '/20i' ? 'bg-blue-600 text-white' : ''"
+      class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+      >20i</a
+    >
+
+    <a
+      href="#"
+      [routerLink]="['/pylon']"
+      [ngClass]="activatedRoute === '/pylon' ? 'bg-blue-600 text-white' : ''"
+      class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+      >Pylon</a
+    >
+    <a
+      href="#"
+      [routerLink]="['/whmcs']"
+      [ngClass]="activatedRoute === '/whmcs' ? 'bg-blue-600 text-white' : ''"
+      class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+      >Whmcs</a
+    >
+    <a
+      href="#"
+      [routerLink]="['/malwarebytes']"
+      [ngClass]="
+        activatedRoute === '/malwarebytes' ? 'bg-blue-600 text-white' : ''
+      "
+      class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+      >Malwarebytes</a
+    >
+    <!--    <a-->
+    <!--      href="#"-->
+    <!--      [routerLink]="['/contracting']"-->
+    <!--      [ngClass]="-->
+    <!--        activatedRoute === '/contracting' ? 'bg-blue-600 text-white' : ''-->
+    <!--      "-->
+    <!--      class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"-->
+    <!--      >Contracts</a-->
+    <!--    >-->
+    <a
+      href="#"
+      [routerLink]="['/mailing']"
+      [ngClass]="activatedRoute === '/mailing' ? 'bg-blue-600 text-white' : ''"
+      class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+      >Mailing</a
+    >
+    <a
+      (click)="openLogoutDialog('5ms', '5ms')"
+      class="cursor-pointer text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+      >Logout</a
+    >
+  </div>
+</div>
+
+<!--End Menu button-->
+
+<!-- Sidebar -->
+
+<div
+  class="hidden md:block fixed flex flex-col top-0 left-0 bg-gray-500 dark:bg-gray-900 text-white transition-all duration-300 border-none z-10"
+>
+  <nav
+    [ngClass]="toggle ? 'sidebar' : 'sidebar close'"
+    (mouseenter)="toggle = true"
+    (mouseleave)="toggle = false"
+    class="sidebar"
+  >
+    <header>
+      <div class="image-text">
+        <span class="image">
+          <img src="assets/logo.png" alt="" />
+        </span>
+
+        <div class="text logo-text">
+          <span class="profession ml-2 text-gray-500">{{ email }}</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="menu-bar">
+      <div class="menu">
+        <li class="search-box">
+          <fa-icon [icon]="faSearch" class="icon text-gray-500"></fa-icon>
+          <input type="text" placeholder="Search..." />
+        </li>
+
+        <ul class="menu-links">
+          <li class="nav-link group">
+            <a
+              class="group-hover:bg-blue-500"
+              [ngClass]="activatedRoute === '/dashboard' ? 'bg-blue-500' : ''"
+              href="#"
+              [routerLink]="['/dashboard']"
+            >
+              <fa-icon
+                [icon]="faHome"
+                class="icon group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/dashboard'
+                    ? 'text-white'
+                    : 'text-gray-500'
+                "
+              ></fa-icon>
+              <span
+                class="text nav-text group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/dashboard'
+                    ? 'text-white'
+                    : 'text-gray-500'
+                "
+                >Dashboard</span
+              >
+            </a>
+          </li>
+
+          <li class="nav-link group">
+            <a
+              class="group-hover:bg-blue-500"
+              [ngClass]="activatedRoute === '/users' ? 'bg-blue-500' : ''"
+              href="#"
+              [routerLink]="['/users']"
+            >
+              <fa-icon
+                [icon]="faPeopleGroup"
+                class="icon group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/users' ? 'text-white' : 'text-gray-500'
+                "
+              ></fa-icon>
+              <span
+                class="text nav-text group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/users' ? 'text-white' : 'text-gray-500'
+                "
+                >Users</span
+              >
+            </a>
+          </li>
+
+          <li class="nav-link group">
+            <a
+              class="group-hover:bg-blue-500"
+              [ngClass]="activatedRoute === '/edi' ? 'bg-blue-500' : ''"
+              href="#"
+              [routerLink]="['/edi']"
+            >
+              <fa-icon
+                [icon]="faReceipt"
+                class="icon group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/edi' ? 'text-white' : 'text-gray-500'
+                "
+              ></fa-icon>
+              <span
+                class="text nav-text group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/edi' ? 'text-white' : 'text-gray-500'
+                "
+                >Edi</span
+              >
+            </a>
+          </li>
+          <li class="nav-link group">
+            <a
+              class="group-hover:bg-blue-500"
+              [ngClass]="activatedRoute === '/20i' ? 'bg-blue-500' : ''"
+              href="#"
+              [routerLink]="['/20i']"
+            >
+              <fa-icon
+                [icon]="faServer"
+                class="icon group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/20i' ? 'text-white' : 'text-gray-500'
+                "
+              ></fa-icon>
+              <span
+                class="text nav-text group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/20i' ? 'text-white' : 'text-gray-500'
+                "
+                >20i</span
+              >
+            </a>
+          </li>
+          <li class="nav-link group">
+            <a
+              class="group-hover:bg-blue-500"
+              [ngClass]="activatedRoute === '/pylon' ? 'bg-blue-500' : ''"
+              href="#"
+              [routerLink]="['/pylon']"
+            >
+              <fa-icon
+                [icon]="faBuildingColumns"
+                class="icon group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/pylon' ? 'text-white' : 'text-gray-500'
+                "
+              ></fa-icon>
+              <span
+                class="text nav-text group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/pylon' ? 'text-white' : 'text-gray-500'
+                "
+                >Pylon</span
+              >
+            </a>
+          </li>
+
+          <!-- whmcs -->
+          <li class="nav-link group">
+            <a
+              class="group-hover:bg-blue-500"
+              [ngClass]="activatedRoute === '/whmcs' ? 'bg-blue-500' : ''"
+              href="#"
+              [routerLink]="['/whmcs']"
+            >
+              <fa-icon
+                [icon]="faWhmcs"
+                class="icon group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/whmcs' ? 'text-white' : 'text-gray-500'
+                "
+              ></fa-icon>
+              <span
+                class="text nav-text group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/whmcs' ? 'text-white' : 'text-gray-500'
+                "
+                >Whmcs</span
+              >
+            </a>
+          </li>
+
+          <!-- malwarebytes -->
+          <li class="nav-link group">
+            <a
+              class="group-hover:bg-blue-500"
+              [ngClass]="
+                activatedRoute === '/malwarebytes' ? 'bg-blue-500' : ''
+              "
+              href="#"
+              [routerLink]="['/malwarebytes']"
+            >
+              <fa-icon
+                [icon]="faShieldVirus"
+                class="icon group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/malwarebytes'
+                    ? 'text-white'
+                    : 'text-gray-500'
+                "
+              ></fa-icon>
+              <span
+                class="text nav-text group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/malwarebytes'
+                    ? 'text-white'
+                    : 'text-gray-500'
+                "
+                >Malwarebytes</span
+              >
+            </a>
+          </li>
+          <!--          &lt;!&ndash; contracting &ndash;&gt;-->
+          <!--          <li class="nav-link group">-->
+          <!--            <a-->
+          <!--              class="group-hover:bg-blue-500"-->
+          <!--              [ngClass]="activatedRoute === '/contracting' ? 'bg-blue-500' : ''"-->
+          <!--              href="#"-->
+          <!--              [routerLink]="['/contracting']"-->
+          <!--            >-->
+          <!--              <fa-icon-->
+          <!--                [icon]="faFileContract"-->
+          <!--                class="icon group-hover:text-white"-->
+          <!--                [ngClass]="-->
+          <!--                  activatedRoute === '/contracting'-->
+          <!--                    ? 'text-white'-->
+          <!--                    : 'text-gray-500'-->
+          <!--                "-->
+          <!--              ></fa-icon>-->
+          <!--              <span-->
+          <!--                class="text nav-text group-hover:text-white"-->
+          <!--                [ngClass]="-->
+          <!--                  activatedRoute === '/contracting'-->
+          <!--                    ? 'text-white'-->
+          <!--                    : 'text-gray-500'-->
+          <!--                "-->
+          <!--                >Contracting</span-->
+          <!--              >-->
+          <!--            </a>-->
+          <!--          </li>-->
+          <!-- mailing -->
+          <li class="nav-link group">
+            <a
+              class="group-hover:bg-blue-500"
+              [ngClass]="activatedRoute === '/mailing' ? 'bg-blue-500' : ''"
+              href="#"
+              [routerLink]="['/mailing']"
+            >
+              <fa-icon
+                [icon]="faMailBulk"
+                class="icon group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/mailing' ? 'text-white' : 'text-gray-500'
+                "
+              ></fa-icon>
+              <span
+                class="text nav-text group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/mailing' ? 'text-white' : 'text-gray-500'
+                "
+                >Mailing</span
+              >
+            </a>
+          </li>
+          <!-- events history -->
+          <li class="nav-link group">
+            <a
+              class="group-hover:bg-blue-500"
+              [ngClass]="activatedRoute === '/events' ? 'bg-blue-500' : ''"
+              href="#"
+              [routerLink]="['/events']"
+            >
+              <fa-icon
+                [icon]="faHistory"
+                class="icon group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/events' ? 'text-white' : 'text-gray-500'
+                "
+              ></fa-icon>
+              <span
+                class="text nav-text group-hover:text-white"
+                [ngClass]="
+                  activatedRoute === '/events' ? 'text-white' : 'text-gray-500'
+                "
+                >Events</span
+              >
+            </a>
+          </li>
+          <li class="nav-link group">
+            <a
+              class="cursor-pointer bg-transparent group-hover:bg-blue-500"
+              (click)="openLogoutDialog('5ms', '5ms')"
+            >
+              <fa-icon
+                [icon]="faSignOut"
+                class="icon group-hover:text-white text-gray-500"
+              ></fa-icon>
+              <span class="text nav-text group-hover:text-white text-gray-500"
+                >Logout</span
+              >
+            </a>
+          </li>
+        </ul>
+        <span class="session-timer group rounded-md shadow-sm">
+          <play-components-simple-spinner
+            *ngIf="showSpinner"
+            class="grow"
+            mainColor="blue"
+          >
+          </play-components-simple-spinner>
+          <button
+            *ngIf="!showSpinner"
+            type="button"
+            (click)="renewToken()"
+            [ngClass]="
+              toggle
+                ? 'w-5/6 pl-14 text-xl border-blue-200 border-2 rounded-md'
+                : 'text-sm border-gray-200 border'
+            "
+            class="animate__animated animate__fadeInDown animate__delay-1s inline-flex items-center px-2 leading-5 font-medium rounded-full text-gray-700 bg-white group-hover:bg-blue-500 group-hover:text-2xl group-hover:text-white group-hover:border focus:outline-none focus:shadow-outline focus:border-blue-200 active:text-gray-800 active:bg-gray-50"
+          >
+            {{ timeToTokenExpiration | async | date: 'HH:mm:ss' }}
+          </button>
+        </span>
+      </div>
+    </div>
+  </nav>
+</div>
+<!-- ./Sidebar -->

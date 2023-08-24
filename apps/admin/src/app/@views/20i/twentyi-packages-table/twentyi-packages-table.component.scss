@@ -1,0 +1,32 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+.mat-column-platform {
+  width: 10% !important;
+}
+.mat-column-select {
+  width: 10% !important;
+}
+
+.mat-row:hover .mat-cell {
+  background-color: #eeeeee;
+  cursor: pointer;
+}
+
+mat-checkbox {
+  ::ng-deep .mat-checkbox-inner-container {
+    width: 20px;
+    height: 20px;
+  }
+}

@@ -1,0 +1,41 @@
+<section class="flex ml-24 flex-col md:flex-row">
+  <div class="w-full mr-4">
+    <div *ngIf="loading" class="text-center pt-5 mt-5">
+      <play-components-simple-spinner
+        *ngIf="loading"
+        class="grow"
+        mainColor="blue"
+        id="spinner"
+      ></play-components-simple-spinner>
+    </div>
+    <angular-editor
+      *ngIf="!loading"
+      class="w-full h-screen"
+      [placeholder]="'Enter text here...'"
+      [(ngModel)]="html"
+      [config]="editorConfig"
+    >
+      <ng-template #customButtons let-executeCommandFn="executeCommandFn">
+        <ae-toolbar-set>
+          <!-- tailwind neuomorphism box to hold the buttons -->
+          <div class="flex flex-row justify-left card shadow-sm rounded-lg p-4">
+            <!-- tailwind green rounded save button -->
+            <button
+              (click)="saveTemplate()"
+              class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+            >
+              <fa-icon [icon]="faSave"></fa-icon> Save
+            </button>
+            <!-- tailwind red rounded cancel button -->
+            <button
+              class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              (click)="cancel()"
+            >
+              <fa-icon [icon]="faTimes"></fa-icon> Cancel
+            </button>
+          </div>
+        </ae-toolbar-set>
+      </ng-template>
+    </angular-editor>
+  </div>
+</section>

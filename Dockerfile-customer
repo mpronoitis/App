@@ -1,0 +1,25 @@
+
+# Stage 1: Compile and Build angular codebase
+
+# Use official image as the base image
+# 16.13.0
+FROM node:16-alpine as build
+
+# Set the working directory
+WORKDIR /app
+
+# Add source code to working directory
+COPY . .
+
+# Build the angular app in production mode and store the artifacts in dist folder
+RUN npm run build-customer
+
+
+# Stage 2: Serve app with nginx server
+FROM nginx:alpine as production
+#copy /dist/apps/customer from build stage to /usr/share/nginx/html of production stage
+COPY --from=build /app/dist/apps/customer /usr/share/nginx/html
+#expose port 80
+EXPOSE 80
+
+LABEL org.opencontainers.image.source https://github.com/PlaySystems-Integrator/Play.App

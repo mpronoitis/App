@@ -1,0 +1,129 @@
+<div class="h-full ml-14 mt-14 mb-10 md:ml-20">
+  <!--Initial Text-->
+  <section class="bg-gray-200 container mx-auto">
+    <div class="pt-5 pb-5">
+      <h1 class="text-2xl font-bold text-blue-900">EDI ORGANIZATION</h1>
+      <p class="text-sm text-gray-500"></p>
+    </div>
+  </section>
+  <hr class="border border-gray-200 my-10" />
+  <div class="container mx-auto">
+    <play-components-simple-button
+      *ngIf="
+        showAddEdiOrganizationForm ||
+        showDeleteOrganizationForm ||
+        showEditOrganizationForm
+      "
+      title="Back to Organizations"
+      (click)="goBack()"
+      [icon]="faArrowLeft"
+    ></play-components-simple-button>
+  </div>
+
+  <section class="overflow-hidden md:overflow-x-hidden container mx-auto pt-14">
+    <!--CRUD Cards-->
+    <div class="flex -mx-2 mt-2 pl-2 pr-2 animate__animated animate__fadeIn">
+      <div
+        (click)="showAddForm()"
+        [ngClass]="
+          activeTab === 'create-org'
+            ? 'bg-blue-900 text-white'
+            : 'hover:bg-blue-900 hover:text-white bg-white text-blue-900'
+        "
+        class="cursor-pointer w-1/3 p-4 border border-gray-300 shadow-md rounded-lg mx-2"
+      >
+        <div class="flex items-center bg-blue-200 rounded-full w-12 h-12">
+          <fa-icon
+            class="text-blue-900 w-full text-center"
+            [icon]="faAdd"
+          ></fa-icon>
+        </div>
+        <h2 class="text-lg font-bold pt-2 mt-2">Create</h2>
+      </div>
+      <div
+        (click)="showEditForm()"
+        [ngClass]="
+          activeTab === 'edit-org'
+            ? 'bg-blue-900 text-white'
+            : 'hover:bg-blue-900 hover:text-white bg-white text-blue-900'
+        "
+        class="cursor-pointer w-1/3 p-4 border border-gray-300 shadow-md rounded-lg mx-2"
+      >
+        <div class="flex items-center bg-blue-200 rounded-full w-12 h-12">
+          <fa-icon
+            class="text-blue-900 w-full text-center"
+            [icon]="faSync"
+          ></fa-icon>
+        </div>
+        <h2 class="text-lg font-bold pt-2 mt-2">Update</h2>
+      </div>
+      <div
+        (click)="showDeleteForm()"
+        [ngClass]="
+          activeTab === 'delete-org'
+            ? 'bg-blue-900 text-white'
+            : 'hover:bg-blue-900 hover:text-white bg-white text-blue-900'
+        "
+        class="cursor-pointer w-1/3 p-4 border border-gray-300 shadow-md rounded-lg mx-2"
+      >
+        <div class="flex items-center bg-blue-200 rounded-full w-12 h-12">
+          <fa-icon
+            class="text-blue-900 w-full text-center"
+            [icon]="faTrash"
+          ></fa-icon>
+        </div>
+        <h2 class="text-lg font-bold pt-2 mt-2">Delete</h2>
+      </div>
+    </div>
+  </section>
+
+  <hr class="border border-gray-200 my-10" />
+
+  <div *ngIf="loading" class="text-center pt-5 mt-5">
+    <!--Show spinner if loading-->
+    <play-components-simple-spinner
+      *ngIf="loading"
+      class="grow"
+      mainColor="blue"
+      id="spinner"
+    ></play-components-simple-spinner>
+  </div>
+
+  <div
+    *ngIf="!loading"
+    class="w-full container mx-auto bg-gray-200 h-auto my-10 mb-4 pb-2 pl-2 pr-2 pt-1"
+  >
+    <!--Container With Table-->
+    <play-app-admin-edi-organization-table
+      *ngIf="
+        !showAddEdiOrganizationForm &&
+        !showDeleteOrganizationForm &&
+        !showEditOrganizationForm
+      "
+      [organizations]="ediOrganizations"
+      (refresh)="getEdiOrganizations(1, 1000)"
+    ></play-app-admin-edi-organization-table>
+
+    <!--Add Organization Form-->
+    <play-app-admin-edi-organization-add
+      *ngIf="showAddEdiOrganizationForm"
+      (refresh)="getEdiOrganizations(1, 1000)"
+    >
+    </play-app-admin-edi-organization-add>
+    <!--Edit Organization-->
+    <play-app-admin-edi-organization-update
+      *ngIf="showEditOrganizationForm"
+      (refresh)="getEdiOrganizations(1, 1000)"
+      [organizationNames]="options"
+    >
+    </play-app-admin-edi-organization-update>
+
+    <!--Delete Organization-->
+    <play-app-admin-edi-organization-delete
+      *ngIf="showDeleteOrganizationForm"
+      (refresh)="getEdiOrganizations(1, 1000)"
+      [organizationNames]="options"
+    >
+    </play-app-admin-edi-organization-delete>
+  </div>
+</div>

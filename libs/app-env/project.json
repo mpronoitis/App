@@ -1,0 +1,23 @@
+{
+  "name": "app-env",
+  "projectType": "library",
+  "sourceRoot": "libs/app-env/src",
+  "prefix": "play.app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/app-env"],
+      "options": {
+        "jestConfig": "libs/app-env/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/app-env/**/*.ts", "libs/app-env/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}

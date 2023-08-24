@@ -1,0 +1,275 @@
+<!--Update User-->
+<div class="bg-white rounded shadow-lg container mx-auto p-4 mt-2">
+  <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+    <div class="text-gray-600">
+      <p class="font-medium text-lg">Choose A User to Edit</p>
+    </div>
+
+    <div class="md:col-span-6">
+      <label for="address">Username</label>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Username</mat-label>
+        <input
+          type="text"
+          placeholder="Select one"
+          aria-label="string"
+          matInput
+          [formControl]="myControl"
+          [matAutocomplete]="autoEditUser"
+        />
+        <mat-autocomplete autoActiveFirstOption #autoEditUser="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredOptions | async"
+            [value]="option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <play-components-simple-button
+        title="Find"
+        [icon]="faSync"
+        (click)="getCurrentUser(myControl)"
+        size="w-full"
+        color="blue"
+        [loading]="loading"
+        action="submit"
+      >
+      </play-components-simple-button>
+      <hr class="border border-gray-200 my-10 mx-5" />
+    </div>
+    <form
+      *ngIf="showForm"
+      [formGroup]="updateForm"
+      class="md:col-start-1 md:col-end-2"
+    >
+      <div class="text-gray-600">
+        <p class="font-medium text-lg">User Details</p>
+      </div>
+      <div class="lg:col-span-2">
+        <div class="grid gap-4 gap-y-2 grid-cols-1 text-sm md:grid-cols-5">
+          <div class="md:col-span-5">
+            <label for="segmentTerminator">First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              formControlName="firstName"
+              class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+              required
+            />
+          </div>
+
+          <div class="md:col-span-5">
+            <label for="segmentTerminator">Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              formControlName="lastName"
+              class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+              required
+            />
+          </div>
+
+          <div class="md:col-span-5">
+            <label for="segmentTerminator">Company Name</label>
+            <input
+              type="text"
+              name="companyName"
+              id="companyName"
+              formControlName="companyName"
+              class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+              required
+            />
+          </div>
+
+          <div class="md:col-span-5">
+            <label for="segmentTerminator">AFM</label>
+            <input
+              type="text"
+              name="afm"
+              id="afm"
+              formControlName="afm"
+              class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+              required
+            />
+          </div>
+
+          <div class="md:col-span-5">
+            <label for="address">Role</label>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Role</mat-label>
+              <input
+                [readonly]="true"
+                type="text"
+                placeholder="Select one"
+                aria-label="string"
+                matInput
+                [formControl]="roleUserControl"
+                [matAutocomplete]="autoRole"
+              />
+              <mat-autocomplete
+                autoActiveFirstOption
+                #autoRole="matAutocomplete"
+              >
+                <mat-option
+                  *ngFor="let option of roleUserFilteredOptions | async"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+          <div class="md:col-span-5 h-auto">
+            <label for="dateOfBirth"> DateBirth </label>
+            <mat-form-field appearance="fill">
+              <mat-label>Choose Date</mat-label>
+              <input
+                id="dateOfBirth"
+                formControlName="dateOfBirth"
+                matInput
+                [matDatepicker]="picker"
+              />
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="md:col-span-5 text-right">
+            <play-components-simple-button
+              title="Update"
+              [icon]="faSync"
+              (click)="updateUser(myControl, roleUserControl)"
+              size="w-full"
+              color="blue"
+              [loading]="loading"
+              [disabled]="updateForm.invalid"
+              action="submit"
+            >
+            </play-components-simple-button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!--Change Password Form-->
+
+    <div class="flex flex-col md:col-start-3 md:col-end-4">
+      <form *ngIf="showForm" [formGroup]="updatePasswordForm">
+        <div class="text-gray-600">
+          <p class="font-medium text-lg">Change Password</p>
+        </div>
+        <div class="lg:col-span-2">
+          <div class="grid gap-4 gap-y-2 grid-cols-1 text-sm md:grid-cols-5">
+            <div class="md:col-span-5">
+              <label for="email">Email</label>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                formControlName="email"
+                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                required
+              />
+            </div>
+
+            <div class="md:col-span-5">
+              <label for="password">New password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                formControlName="password"
+                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                required
+              />
+            </div>
+
+            <div class="md:col-span-5 text-right">
+              <play-components-simple-button
+                title="Update"
+                [icon]="faSync"
+                (click)="updatePassword(myControl)"
+                size="w-full"
+                color="blue"
+                [loading]="loadingUpdatePassword"
+                [disabled]="updatePasswordForm.invalid"
+                action="submit"
+              >
+              </play-components-simple-button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!--Update Role-->
+      <form *ngIf="showForm" [formGroup]="updateRoleForm" class="mt-5">
+        <div class="text-gray-600">
+          <p class="font-medium text-lg">Change Role</p>
+        </div>
+        <div class="lg:col-span-2">
+          <div class="grid gap-4 gap-y-2 grid-cols-1 text-sm md:grid-cols-5">
+            <div class="md:col-span-5">
+              <label for="email">Email</label>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                formControlName="email"
+                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                required
+              />
+            </div>
+
+            <div class="md:col-span-5">
+              <label for="address">Role</label>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Role</mat-label>
+                <input
+                  type="text"
+                  placeholder="Select one"
+                  aria-label="string"
+                  matInput
+                  [formControl]="updateRoleUserControl"
+                  [matAutocomplete]="autoUpdateRole"
+                />
+                <mat-autocomplete
+                  autoActiveFirstOption
+                  #autoUpdateRole="matAutocomplete"
+                >
+                  <mat-option
+                    *ngFor="let option of updateRoleUserFilteredOptions | async"
+                    [value]="option"
+                  >
+                    {{ option }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+
+            <div class="md:col-span-5 text-right">
+              <play-components-simple-button
+                title="Update"
+                [icon]="faSync"
+                (click)="updateRole(updateRoleUserControl, myControl)"
+                size="w-full"
+                color="blue"
+                [loading]="loadingUpdateRole"
+                [disabled]="updateRoleForm.invalid"
+                action="submit"
+              >
+              </play-components-simple-button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

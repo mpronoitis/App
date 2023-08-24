@@ -1,0 +1,12 @@
+html {
+  padding: 50px;
+}
+
+.dropdown-toggle {
+  padding-top: 3px;
+}
+
+.dropdown-menu {
+  min-width: 60px !important;
+  padding: 3px 12px 6px;
+}

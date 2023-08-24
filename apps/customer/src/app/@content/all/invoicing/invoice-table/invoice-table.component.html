@@ -1,0 +1,88 @@
+<!--Table with invoices-->
+<ng-container *transloco="let t; read: 'invoice-info'">
+  <ng-container *ngIf="invoices">
+    <mat-form-field appearance="standard">
+      <mat-label>{{ t('filter') }} 🔍</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ex. ΤΙΠ-0002181"
+        #input
+      />
+    </mat-form-field>
+    <div class="flex justify-between pl-2 pb-2">
+      <div class="flex space-x-4">
+        <play-components-simple-button
+          title="{{ t('refresh') }}"
+          color="blue"
+          [icon]="faSync"
+          (click)="refreshData()"
+        ></play-components-simple-button>
+      </div>
+      <div class="flex"></div>
+    </div>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <!-- InvoiceCode Column -->
+        <ng-container matColumnDef="invoiceCode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ t('invoice-code') }}
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.invoiceCode }}
+          </td>
+        </ng-container>
+
+        <!--totalAmountWithTax Column-->
+        <ng-container matColumnDef="totalAmountWithTax">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ t('total-amount') }}
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.totalAmountWithTax | currency: 'EUR':'symbol':'1.2-2' }}
+          </td>
+        </ng-container>
+
+        <!-- invoiceDate Column -->
+        <ng-container matColumnDef="invoiceDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ t('invoice-date') }}
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.invoiceDate | date: 'dd/MM/yyyy' }}
+          </td>
+        </ng-container>
+
+        <!-- totalVat Column -->
+        <ng-container matColumnDef="totalVat">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ t('total-tax') }}
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.totalVat | currency: 'EUR':true }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          (click)="displayInvoice(row)"
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+            <div class="flex justify-center items-center h-full">
+              <span class="text-gray-500">No data to display</span>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        aria-label="Select page"
+      ></mat-paginator>
+    </div>
+  </ng-container>
+</ng-container>

@@ -1,0 +1,272 @@
+<h2 mat-dialog-title>Package Details - {{ data }}</h2>
+<mat-dialog-content class="mat-typography">
+  <div *ngIf="loading" class="text-center pt-5 mt-5">
+    <play-components-simple-spinner
+      *ngIf="loading"
+      class="grow"
+      mainColor="blue"
+      id="spinner"
+    ></play-components-simple-spinner>
+  </div>
+  <form
+    *ngIf="!loading"
+    [formGroup]="form"
+    class="w-full max-w-lg mx-auto my-5"
+  >
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="ftp-username"
+        >
+          Ftp Username
+        </label>
+        <input
+          readonly
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          id="ftp-username"
+          type="text"
+          formControlName="ftpUsername"
+        />
+      </div>
+      <div class="w-full md:w-1/2 px-3">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="ftp-password"
+        >
+          Ftp Password
+        </label>
+        <input
+          readonly
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          id="ftp-password"
+          type="text"
+          formControlName="ftpPassword"
+        />
+      </div>
+    </div>
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="ipv4"
+        >
+          Ipv4
+        </label>
+        <input
+          readonly
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          id="ipv4"
+          type="text"
+          formControlName="ipv4"
+        />
+      </div>
+      <div class="w-full md:w-1/2 px-3">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="ipv6"
+        >
+          Ipv6
+        </label>
+        <input
+          readonly
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          id="ipv6"
+          type="text"
+          formControlName="ipv6"
+        />
+      </div>
+    </div>
+    <!--text area for domains/subdomains-->
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="names"
+        >
+          Names
+        </label>
+        <textarea
+          readonly
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          id="names"
+          type="text"
+          formControlName="names"
+        ></textarea>
+      </div>
+    </div>
+    <!-- text area for stackusers-->
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="stackusers"
+        >
+          Stack users
+        </label>
+        <textarea
+          readonly
+          class="appearance none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          id="stackusers"
+          type="text"
+          formControlName="stackusers"
+        ></textarea>
+      </div>
+    </div>
+    <!-- text area for usage-->
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="usage"
+        >
+          Usage
+        </label>
+        <textarea
+          readonly
+          class="appearance none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          id="usage"
+          type="text"
+          formControlName="usage"
+        ></textarea>
+      </div>
+    </div>
+    <!-- 2 textfields for CreatedAt and ExpiresAt-->
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="createdAt"
+        >
+          Created At
+        </label>
+        <input
+          readonly
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          id="createdAt"
+          type="text"
+          formControlName="createdAt"
+        />
+      </div>
+      <div class="w-full md:w-1/2 px-3">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="expiresAt"
+        >
+          Expires At
+        </label>
+        <input
+          readonly
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          id="expiresAt"
+          type="text"
+          formControlName="expiresAt"
+        />
+      </div>
+    </div>
+    <!-- grid layouts for buttons-->
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        type="button"
+        (click)="awsStats()"
+      >
+        <fa-icon [icon]="faChartArea"></fa-icon> Awstats
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        type="button"
+        (click)="webalizerStats()"
+      >
+        <fa-icon [icon]="faChartBar"></fa-icon> Webalizer
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        type="button"
+        (click)="getLogFiles()"
+      >
+        <fa-icon [icon]="faDownload"></fa-icon> Logs
+      </button>
+      <!--Start MalwareScan Button-->
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        type="button"
+        (click)="startMalwareScan()"
+      >
+        <fa-icon [icon]="faVirus"></fa-icon> Start Scan
+      </button>
+      <!--Check Malware Scan Status-->
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        type="button"
+        (click)="checkMalwareScan()"
+      >
+        <fa-icon [icon]="faCheck"></fa-icon> Scan Status
+      </button>
+      <!--Package Web Logs-->
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        type="button"
+        (click)="packagesWebLogs()"
+      >
+        <fa-icon [icon]="faHistory"></fa-icon> Web Logs
+      </button>
+    </div>
+
+    <!--Display Web logs-->
+    <div *ngIf="showAccordion" class="mt-5">
+      <mat-toolbar class="bg-blue-500"> WebLogs </mat-toolbar>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <span class="flex items-center space-between">Access Logs</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <textarea
+            readonly
+            disabled
+            id="message"
+            rows="20"
+            columns="20"
+            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+
+       {{ this.packageWebLogs?.access_log | json }}
+
+          </textarea>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <span class="flex items-center space-between">Error Logs</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <textarea
+            readonly
+            disabled
+            id="message"
+            rows="20"
+            columns="20"
+            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+
+                {{ this.packageWebLogs?.error_log | json }}
+
+         </textarea
+          >
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+    cdkFocusInitial
+    mat-button
+    mat-dialog-close
+  >
+    Exit
+  </button>
+</mat-dialog-actions>

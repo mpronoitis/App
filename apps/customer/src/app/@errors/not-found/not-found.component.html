@@ -1,0 +1,30 @@
+<div class="flex flex-col h-screen bg-white dark:bg-gray-900">
+  <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+    <div class="mx-auto max-w-screen-sm text-center">
+      <img
+        src="../../../assets/Images/404-page.webp"
+        alt=""
+        class="animate-pulse"
+      />
+      <p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">
+        The page you were looking for doesn't exist. You may have mistyped the
+        address or the page may have moved.
+      </p>
+      <a
+        href="#"
+        class="inline-flex text-white bg-primary-600 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900 my-4"
+        >Back to Homepage</a
+      >
+      <div class="relative"></div>
+      <div class="relative">
+        <!-- Added div with relative class in order to button placed at center-->
+        <play-components-simple-button
+          title="Back to Homepage"
+          (click)="goBack()"
+          [icon]="faArrowLeft"
+        ></play-components-simple-button>
+      </div>
+    </div>
+  </div>
+</div>
+<play-app-footer></play-app-footer>

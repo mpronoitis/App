@@ -1,0 +1,31 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": false,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@play.app/app-env": ["libs/app-env/src/index.ts"],
+      "@play.app/auth/*": ["libs/auth/src/lib/*.ts"],
+      "@play.app/components": ["libs/components/src/index.ts"],
+      "@play.app/directives": ["libs/directives/src/index.ts"],
+      "@play.app/modals/*": ["libs/modals/src/lib/*.ts"],
+      "@play.app/services/*": ["libs/services/src/lib/*.ts"],
+      "@play.app/types/*": ["libs/types/src/lib/*.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

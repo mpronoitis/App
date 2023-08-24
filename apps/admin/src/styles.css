@@ -1,0 +1,32 @@
+@import '~ngx-toastr/toastr';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+@layer base {
+  :root {
+    /* follow material deep purple/amber colors */
+    --color-primary: #548cfd;
+    --color-secondary: #ffc107;
+    --color-tertiary: #ff9800;
+    --color-quaternary: #ff5722;
+  }
+}
+
+@layer components {
+  .header-container {
+    background-color: var(--color-primary);
+  }
+}

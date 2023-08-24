@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  play.services.app.customer:
+    image: ghcr.io/playsystems-integrator/play.app:main
+    container_name: play.services.app.customer
+    hostname: play.services.app.customer
+    volumes:
+      #pass default.conf to nginx
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.playapp.entrypoints=web'
+      - 'traefik.http.routers.playapp.rule=Host(`app.playsystems.io`, `www.app.playsystems.io`)'
+      - 'traefik.http.routers.playapp.tls.certresolver=lets-encr'
+      - 'traefik.http.routers.playapp.rule=Host(`app.playsystems.io`)'
+      - 'traefik.http.routers.playapp.entrypoints=websecure'
+networks:
+  default:
+    external:
+      name: traefik_net

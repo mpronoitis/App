@@ -1,0 +1,105 @@
+pipeline {
+  //agent { label 'jenkins_label' }
+  agent any
+  environment {
+    GITHUB_TOKEN=credentials('github-token')
+    IMAGE_NAME='playsystems-integrator/play-app-admin'
+    IMAGE_VERSION='latest'
+    timestamp = new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone('UTC'))
+  }
+  stages {
+  stage('Init Github Check') {
+        steps {
+          withCredentials([usernamePassword(credentialsId: 'github-app-playsystems',
+                                            usernameVariable: 'GITHUB_APP',
+                                            passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
+              sh '''
+              curl -H "Content-Type: application/json" \
+                   -H "Accept: application/vnd.github.antiope-preview+json" \
+                   -H "authorization: Bearer ${GITHUB_ACCESS_TOKEN}" \
+                   -d '{ "name": "Build and Upload Admin Docker Image", \
+                         "head_sha": "'${GIT_COMMIT}'", \
+                         "status": "in_progress", \
+                         "external_id": "34", \
+                         "started_at": "'${timestamp}'", \
+                         "output": { "title": "Admin docker image is being built!", \
+                                     "summary": "You will be notified when the run has been completed!"}}' https://api.github.com/repos/PlaySystems-Integrator/Play.App/check-runs
+              '''
+          }
+        }
+      }
+
+    stage('Clean package list') {
+      steps {
+        //we will wait for 60 minutes to avoid conflicts on prune
+        sleep 60
+        sh 'apt-get clean'
+        //remove any sources with the word "docker" in them
+        sh 'rm -rf /etc/apt/sources.list.d/*docker*'
+        sh 'sed -i "/docker/d" /etc/apt/sources.list'
+      }
+    }
+    stage('install docker') {
+      steps {
+        sh 'apt-get update && apt-get upgrade -y && apt-get install -y docker.io'
+      }
+    }
+
+    stage('cleanup') {
+      steps {
+        sh 'docker system prune -a --force'
+      }
+    }
+    stage('install dependencies') {
+      steps {
+        sh 'npm install'
+      }
+    }
+    stage('build image') {
+      steps {
+        sh 'docker build -f Dockerfile-admin -t $IMAGE_NAME:$IMAGE_VERSION --network host .'
+      }
+    }
+    stage('login to GHCR') {
+      steps {
+        sh 'echo $GITHUB_TOKEN_PSW | docker login ghcr.io -u $GITHUB_TOKEN_USR --password-stdin'
+      }
+    }
+    stage('tag image') {
+      steps {
+        sh 'docker tag $IMAGE_NAME:$IMAGE_VERSION ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
+      }
+    }
+    stage('push image') {
+      steps {
+        sh 'docker push ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
+      }
+    }
+  stage('Update Github Check') {
+        steps {
+          withCredentials([usernamePassword(credentialsId: 'github-app-playsystems',
+                                            usernameVariable: 'GITHUB_APP',
+                                            passwordVariable: 'GITHUB_ACCESS_TOKEN')]) {
+              sh '''
+              curl -H "Content-Type: application/json" \
+                   -H "Accept: application/vnd.github.antiope-preview+json" \
+                   -H "authorization: Bearer ${GITHUB_ACCESS_TOKEN}" \
+                   -d '{ "name": "Build and Upload Admin Docker Image", \
+                         "head_sha": "'${GIT_COMMIT}'", \
+                         "status": "completed", \
+                         "conclusion": "success", \
+                         "external_id": "34", \
+                         "started_at": "'${timestamp}'", \
+                         "output": { "title": "Admin docker image has been built and uploaded!", \
+                                     "summary": "The production docker image has been built and uploaded to github packages!"}}' https://api.github.com/repos/PlaySystems-Integrator/Play.App/check-runs
+              '''
+          }
+        }
+      }
+  }
+  post {
+    always {
+      sh 'docker logout'
+    }
+  }
+}
